@@ -12,6 +12,8 @@ class TimelineItem : Component {
   override val rootNode = marble.rootNode
 
   init {
+    rootNode.setAttribute("style", "cursor: ew-resize;")
+
     rootNode.addEventListener("mousedown", { down ->
       val rect = down.asDynamic().currentTarget.parentElement.getBoundingClientRect() as DOMRect
       val width = rect.width
@@ -37,7 +39,6 @@ class TimelineItem : Component {
       document.addEventListener("mouseup", {
         document.removeEventListener("mousemove", moveListener)
       })
-
     })
   }
 
@@ -45,11 +46,7 @@ class TimelineItem : Component {
     this.dragListener = listener
   }
 
-  fun setTime(time: Double) {
-    marble.setTime(time)
-  }
-
-  fun setColor(color: String) {
-    marble.setColor(color)
+  fun setModel(model: Marble.Model) {
+    marble.setModel(model)
   }
 }
