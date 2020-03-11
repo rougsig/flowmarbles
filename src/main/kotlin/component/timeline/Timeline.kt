@@ -5,7 +5,7 @@ import core.appendComponent
 import core.createSvgElement
 import org.w3c.dom.Element
 
-class Timeline : Component {
+class Timeline(private val editable: Boolean = true) : Component {
   data class Model(
     val marbles: List<Marble.Model>
   )
@@ -42,7 +42,7 @@ class Timeline : Component {
     marbles = newModel.marbles.mapIndexed { index, marble ->
       val item = TimelineItem()
       item.setModel(marble)
-      item.setDragListener { time ->
+      if (editable) item.setDragListener { time ->
         this.model = Model(this.model.marbles.toMutableList().apply {
           removeAt(index)
           add(index, model.marbles[index].copy(time = time))
