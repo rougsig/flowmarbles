@@ -20,9 +20,9 @@ class Marble<T : Any> : Component {
   }.also { rootNode.appendChild(it) }
 
   private val text = createSvgElement("text") {
-    setAttribute("style", "user-select: none; font-size: 2.5px")
+    setAttribute("style", "user-select: none; font-size: 2.5px; font-family: 'Roboto Mono', monospace;")
     setAttribute("text-anchor", "middle")
-    setAttribute("y", "0.8")
+    setAttribute("y", "1")
   }.also { rootNode.appendChild(it) }
 
   fun setModel(model: Model<T>) {
