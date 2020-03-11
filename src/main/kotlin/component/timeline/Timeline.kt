@@ -6,8 +6,12 @@ import core.createSvgElement
 import org.w3c.dom.Element
 
 class Timeline : Component {
-  private var timelineChangeListener: ((List<Marble.Model>) -> Unit)? = null
-  private var models: List<Marble.Model> = emptyList()
+  data class Model(
+    val marbles: List<Marble.Model>
+  )
+
+  private var timelineChangeListener: ((Model) -> Unit)? = null
+  private var model: Model = Model(marbles = emptyList())
     set(value) {
       inflateMarbles(field, value)
       field = value
@@ -16,32 +20,33 @@ class Timeline : Component {
     }
   private var marbles: List<TimelineItem> = emptyList()
   override val rootNode: Element = createSvgElement("svg") {
-    setAttribute("style", "overflow: visible; background: wheat;")
+    setAttribute("style", "overflow: visible; background: wheat; display: block;")
     setAttribute("viewBox", "0 0 100 10")
     setAttribute("height", "64px")
     setAttribute("width", "640px")
   }
 
-  fun setModel(models: List<Marble.Model>) {
-    this.models = models
+  fun setModel(model: Model) {
+    if (model == this.model) return
+    this.model = model
   }
 
-  fun setTimelineChangeListener(listener: ((List<Marble.Model>) -> Unit)?) {
+  fun setTimelineChangeListener(listener: ((Model) -> Unit)?) {
     this.timelineChangeListener = listener
   }
 
-  private fun inflateMarbles(currentModels: List<Marble.Model>, newModels: List<Marble.Model>) {
-    if (currentModels.size == newModels.size) return
+  private fun inflateMarbles(currentModel: Model, newModel: Model) {
+    if (currentModel.marbles.size == newModel.marbles.size) return
 
     rootNode.innerHTML = ""
-    marbles = newModels.mapIndexed { index, model ->
+    marbles = newModel.marbles.mapIndexed { index, marble ->
       val item = TimelineItem()
-      item.setModel(model)
+      item.setModel(marble)
       item.setDragListener { time ->
-        this.models = models.toMutableList().apply {
+        this.model = Model(this.model.marbles.toMutableList().apply {
           removeAt(index)
-          add(index, models[index].copy(time = time))
-        }
+          add(index, model.marbles[index].copy(time = time))
+        })
       }
       rootNode.appendComponent(item)
       item
@@ -50,7 +55,7 @@ class Timeline : Component {
 
   private fun invalidateTimeline() {
     marbles.forEachIndexed { index, timelineItem ->
-      timelineItem.setModel(models[index])
+      timelineItem.setModel(model.marbles[index])
     }
   }
 }
