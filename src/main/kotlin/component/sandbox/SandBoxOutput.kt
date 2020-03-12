@@ -10,6 +10,8 @@ class SandBoxOutput<T : Any> : Component {
     get() = timeline.rootNode
 
   fun setModel(model: Timeline.Model<T>) {
-    timeline.setModel(model)
+    timeline.setModel(model.copy(
+      marbles = model.marbles.filter { it.time <= 100.0 })
+    )
   }
 }

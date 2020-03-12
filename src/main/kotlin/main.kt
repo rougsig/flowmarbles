@@ -81,9 +81,7 @@ fun main() {
         .toList()
       sandBoxOutput.setModel(Timeline.Model(list))
     }
-    window.setTimeout({
-      println(vtDispatcher.advanceUntilIdle())
-    }, 0)
+    window.setTimeout({ vtDispatcher.advanceUntilIdle() }, 0)
   }
   sandboxInput.setTimelinesChangeListener { model ->
     updateOutput(model)
