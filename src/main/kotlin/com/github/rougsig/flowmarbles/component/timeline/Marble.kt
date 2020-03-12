@@ -1,7 +1,7 @@
-package component.timeline
+package com.github.rougsig.flowmarbles.component.timeline
 
-import core.Component
-import core.createSvgElement
+import com.github.rougsig.flowmarbles.core.Component
+import com.github.rougsig.flowmarbles.core.createSvgElement
 import org.w3c.dom.Element
 
 class Marble<T : Any> : Component {

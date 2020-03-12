@@ -1,6 +1,6 @@
-package component.timeline
+package com.github.rougsig.flowmarbles.component.timeline
 
-import core.Component
+import com.github.rougsig.flowmarbles.core.Component
 import org.w3c.dom.DOMRect
 import org.w3c.dom.events.Event
 import org.w3c.dom.events.MouseEvent

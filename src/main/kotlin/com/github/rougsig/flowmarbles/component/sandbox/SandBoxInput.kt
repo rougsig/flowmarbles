@@ -1,9 +1,9 @@
-package component.sandbox
+package com.github.rougsig.flowmarbles.component.sandbox
 
-import component.timeline.Timeline
-import core.Component
-import core.appendComponent
-import core.createElement
+import com.github.rougsig.flowmarbles.component.timeline.Timeline
+import com.github.rougsig.flowmarbles.core.Component
+import com.github.rougsig.flowmarbles.core.appendComponent
+import com.github.rougsig.flowmarbles.core.createElement
 import org.w3c.dom.Element
 
 class SandBoxInput<T : Any> : Component {
@@ -12,7 +12,8 @@ class SandBoxInput<T : Any> : Component {
   )
 
   private var timelinesChangeListener: ((Model<T>) -> Unit)? = null
-  private var model: Model<T> = Model(timelines = emptyList())
+  private var model: Model<T> =
+    Model(timelines = emptyList())
     set(value) {
       inflateTimelines(field, value)
       field = value
@@ -40,10 +41,11 @@ class SandBoxInput<T : Any> : Component {
       val item = Timeline<T>()
       item.setModel(timeline)
       item.setTimelineChangeListener { model ->
-        this.model = Model(this.model.timelines.toMutableList().apply {
-          removeAt(index)
-          add(index, model)
-        })
+        this.model =
+          Model(this.model.timelines.toMutableList().apply {
+            removeAt(index)
+            add(index, model)
+          })
       }
       rootNode.appendComponent(item)
       item

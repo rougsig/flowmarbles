@@ -1,4 +1,4 @@
-package extensions
+package com.github.rougsig.flowmarbles.extensions
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.internal.ThreadSafeHeap
@@ -20,7 +20,8 @@ interface DelayController {
 // Huge thanks to
 // https://github.com/Kotlin/kotlinx.coroutines/tree/master/kotlinx-coroutines-test
 @InternalCoroutinesApi
-class VirtualTimeDispatcher : CoroutineDispatcher(), Delay, DelayController {
+class VirtualTimeDispatcher : CoroutineDispatcher(), Delay,
+  DelayController {
   private var dispatchImmediately = true
     set(value) {
       field = value
@@ -43,7 +44,10 @@ class VirtualTimeDispatcher : CoroutineDispatcher(), Delay, DelayController {
   }
 
   override fun scheduleResumeAfterDelay(timeMillis: Long, continuation: CancellableContinuation<Unit>) {
-    postDelayed(CancellableContinuationRunnable(continuation) { resumeUndispatched(Unit) }, timeMillis)
+    postDelayed(
+      CancellableContinuationRunnable(
+        continuation
+      ) { resumeUndispatched(Unit) }, timeMillis)
   }
 
   private fun post(block: Runnable) {
@@ -51,7 +55,13 @@ class VirtualTimeDispatcher : CoroutineDispatcher(), Delay, DelayController {
   }
 
   private fun postDelayed(block: Runnable, delayTime: Long) {
-    queue.addLast(TimedRunnable(block, ++counter, currentTime + delayTime))
+    queue.addLast(
+      TimedRunnable(
+        block,
+        ++counter,
+        currentTime + delayTime
+      )
+    )
   }
 
   private fun doActionsUntil(targetTime: Long) {

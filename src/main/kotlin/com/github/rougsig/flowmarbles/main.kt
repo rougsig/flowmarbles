@@ -1,10 +1,12 @@
-import component.sandbox.SandBoxInput
-import component.sandbox.SandBoxOutput
-import component.timeline.Marble
-import component.timeline.Timeline
-import core.appendComponent
-import extensions.VirtualTimeDispatcher
-import extensions.toTimedFlow
+package com.github.rougsig.flowmarbles
+
+import com.github.rougsig.flowmarbles.component.sandbox.SandBoxInput
+import com.github.rougsig.flowmarbles.component.sandbox.SandBoxOutput
+import com.github.rougsig.flowmarbles.component.timeline.Marble
+import com.github.rougsig.flowmarbles.component.timeline.Timeline
+import com.github.rougsig.flowmarbles.core.appendComponent
+import com.github.rougsig.flowmarbles.extensions.VirtualTimeDispatcher
+import com.github.rougsig.flowmarbles.extensions.toTimedFlow
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.Runnable
@@ -80,8 +82,8 @@ fun main() {
         .flowOn(vtDispatcher)
         .toList()
       sandBoxOutput.setModel(Timeline.Model(list))
+      window.setTimeout({ vtDispatcher.advanceUntilIdle() }, 0)
     }
-    window.setTimeout({ vtDispatcher.advanceUntilIdle() }, 0)
   }
   sandboxInput.setTimelinesChangeListener { model ->
     updateOutput(model)

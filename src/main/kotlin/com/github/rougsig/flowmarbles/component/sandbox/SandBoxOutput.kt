@@ -1,11 +1,12 @@
-package component.sandbox
+package com.github.rougsig.flowmarbles.component.sandbox
 
-import component.timeline.Timeline
-import core.Component
+import com.github.rougsig.flowmarbles.component.timeline.Timeline
+import com.github.rougsig.flowmarbles.core.Component
 import org.w3c.dom.Element
 
 class SandBoxOutput<T : Any> : Component {
-  private val timeline = Timeline<T>(editable = false)
+  private val timeline =
+    Timeline<T>(editable = false)
   override val rootNode: Element
     get() = timeline.rootNode
 

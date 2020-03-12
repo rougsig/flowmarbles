@@ -1,17 +1,19 @@
-package component.timeline
+package com.github.rougsig.flowmarbles.component.timeline
 
-import core.Component
-import core.appendComponent
-import core.createSvgElement
+import com.github.rougsig.flowmarbles.core.Component
+import com.github.rougsig.flowmarbles.core.appendComponent
+import com.github.rougsig.flowmarbles.core.createSvgElement
 import org.w3c.dom.Element
 
-class Timeline<T : Any>(private val editable: Boolean = true) : Component {
+class Timeline<T : Any>(private val editable: Boolean = true) :
+  Component {
   data class Model<T : Any>(
     val marbles: List<Marble.Model<T>>
   )
 
   private var timelineChangeListener: ((Model<T>) -> Unit)? = null
-  private var model: Model<T> = Model(marbles = emptyList())
+  private var model: Model<T> =
+    Model(marbles = emptyList())
     set(value) {
       inflateMarbles(field, value)
       field = value
@@ -43,10 +45,11 @@ class Timeline<T : Any>(private val editable: Boolean = true) : Component {
       val item = TimelineItem<T>()
       item.setModel(marble)
       if (editable) item.setDragListener { time ->
-        this.model = Model(this.model.marbles.toMutableList().apply {
-          removeAt(index)
-          add(index, model.marbles[index].copy(time = time))
-        })
+        this.model =
+          Model(this.model.marbles.toMutableList().apply {
+            removeAt(index)
+            add(index, model.marbles[index].copy(time = time))
+          })
       }
       rootNode.appendComponent(item)
       item
