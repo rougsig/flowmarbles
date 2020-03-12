@@ -9,6 +9,7 @@ import com.github.rougsig.flowmarbles.extensions.VirtualTimeDispatcher
 import com.github.rougsig.flowmarbles.extensions.toTimedFlow
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -56,9 +57,11 @@ class SandBox<T : Any> : Component {
     }
   }
 
+  private var job: Job? = null
   private fun invalidateOutput(input: SandBoxInput.Model<T>, transformer: SandBoxTransformer<T>) {
     val virtualTimeDispatcher = VirtualTimeDispatcher()
-    GlobalScope.launch {
+    job?.cancel()
+    job = GlobalScope.launch {
       val inputs = input.timelines
         .map { it.marbles }
         .map { it.toTimedFlow(virtualTimeDispatcher) }
