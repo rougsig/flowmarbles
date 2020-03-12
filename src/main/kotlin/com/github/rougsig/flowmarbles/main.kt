@@ -1,5 +1,6 @@
 package com.github.rougsig.flowmarbles
 
+import com.github.rougsig.flowmarbles.component.menu.Menu
 import com.github.rougsig.flowmarbles.component.sandbox.SandBox
 import com.github.rougsig.flowmarbles.component.sandbox.SandBoxInput
 import com.github.rougsig.flowmarbles.component.timeline.Marble
@@ -13,6 +14,9 @@ import kotlin.browser.document
 @InternalCoroutinesApi
 fun main() {
   val sandBox = SandBox<Any>()
+  val menu = Menu()
+  menu.setModel(Menu.Model((0..10).map { it.toString() }))
+  menu.setOnItemClickListener { println(it) }
   val input = SandBoxInput.Model<Any>(
     timelines = listOf(
       Timeline.Model<Any>(
@@ -67,5 +71,6 @@ fun main() {
       }
     }
   ))
+  document.getElementById("app")!!.appendComponent(menu)
   document.getElementById("app")!!.appendComponent(sandBox)
 }
