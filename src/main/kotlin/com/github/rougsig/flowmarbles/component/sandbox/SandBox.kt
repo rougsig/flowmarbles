@@ -11,6 +11,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlin.browser.window
@@ -62,6 +63,7 @@ class SandBox<T : Any> : Component {
         .map { it.marbles }
         .map { it.toTimedFlow(virtualTimeDispatcher) }
       val outputModel = transformer(inputs)
+        .map { it.copy(time = virtualTimeDispatcher.currentTime) }
         .flowOn(virtualTimeDispatcher)
         .toList()
       output.setModel(Timeline.Model(outputModel))
