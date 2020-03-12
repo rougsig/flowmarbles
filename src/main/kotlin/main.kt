@@ -25,17 +25,17 @@ fun main() {
         listOf(
           Marble.Model<Any>(
             color = "blue",
-            time = 0.0,
+            time = 0L,
             value = "A"
           ),
           Marble.Model<Any>(
             color = "green",
-            time = 42.0,
+            time = 42L,
             value = "B"
           ),
           Marble.Model<Any>(
             color = "orange",
-            time = 55.0,
+            time = 55L,
             value = "C"
           )
         )
@@ -44,17 +44,17 @@ fun main() {
         listOf(
           Marble.Model<Any>(
             color = "yellow",
-            time = 0.0,
+            time = 0L,
             value = "1"
           ),
           Marble.Model<Any>(
             color = "green",
-            time = 10.0,
+            time = 10L,
             value = "2"
           ),
           Marble.Model<Any>(
             color = "orange",
-            time = 20.0,
+            time = 20L,
             value = "3"
           )
         )
@@ -73,7 +73,7 @@ fun main() {
         .flatMapLatest { x ->
           source1.map {
             it.copy(
-              time = vtDispatcher.currentTime.toDouble(),
+              time = vtDispatcher.currentTime,
               value = x.value.toString() + it.value.toString())
           }
         }

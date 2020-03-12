@@ -7,7 +7,7 @@ import org.w3c.dom.Element
 class Marble<T : Any> : Component {
   data class Model<T : Any>(
     val color: String,
-    val time: Double,
+    val time: Long,
     val value: T
   )
 

@@ -12,7 +12,7 @@ fun <T : Any> List<Marble.Model<T>>.toTimedFlow(vtDispatcher: VirtualTimeDispatc
   return map {
     flow {
       delay(it.time.toLong())
-      emit(it.copy(time = vtDispatcher.currentTime.toDouble()))
+      emit(it.copy(time = vtDispatcher.currentTime))
     }
   }.merge()
 }
