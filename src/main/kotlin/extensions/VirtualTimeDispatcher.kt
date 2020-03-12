@@ -110,7 +110,9 @@ private class CancellableContinuationRunnable<T>(
   val continuation: CancellableContinuation<T>,
   private val block: CancellableContinuation<T>.() -> Unit
 ) : Runnable {
-  override fun run() = continuation.block()
+  override fun run() {
+    continuation.block()
+  }
 }
 
 @InternalCoroutinesApi
@@ -122,11 +124,8 @@ private class TimedRunnable(
   override var heap: ThreadSafeHeap<*>? = null
   override var index: Int = 0
 
-  override fun compareTo(other: TimedRunnable) = if (time == other.time) {
-    count.compareTo(other.count)
-  } else {
-    time.compareTo(other.time)
+  override fun compareTo(other: TimedRunnable): Int {
+    return if (time == other.time) count.compareTo(other.count)
+    else time.compareTo(other.time)
   }
-
-  override fun toString() = "extensions.TimedRunnable(time=$time, run=$runnable)"
 }
