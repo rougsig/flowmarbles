@@ -38,7 +38,6 @@ class VirtualTimeDispatcher : CoroutineDispatcher(), Delay,
     else post(block)
   }
 
-  @InternalCoroutinesApi
   override fun dispatchYield(context: CoroutineContext, block: Runnable) {
     post(block)
   }

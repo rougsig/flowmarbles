@@ -1,27 +1,19 @@
 package com.github.rougsig.flowmarbles
 
+import com.github.rougsig.flowmarbles.component.sandbox.SandBox
 import com.github.rougsig.flowmarbles.component.sandbox.SandBoxInput
-import com.github.rougsig.flowmarbles.component.sandbox.SandBoxOutput
 import com.github.rougsig.flowmarbles.component.timeline.Marble
 import com.github.rougsig.flowmarbles.component.timeline.Timeline
 import com.github.rougsig.flowmarbles.core.appendComponent
-import com.github.rougsig.flowmarbles.extensions.VirtualTimeDispatcher
-import com.github.rougsig.flowmarbles.extensions.toTimedFlow
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.Runnable
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.launch
 import kotlin.browser.document
-import kotlin.browser.window
 
 @InternalCoroutinesApi
 fun main() {
-  val sandboxInput = SandBoxInput<Any>()
-  val initialState = SandBoxInput.Model<Any>(
+  val sandBox = SandBox<Any>()
+  val input = SandBoxInput.Model<Any>(
     timelines = listOf(
       Timeline.Model<Any>(
         listOf(
@@ -63,61 +55,17 @@ fun main() {
       )
     )
   )
-  sandboxInput.setModel(initialState)
-  val sandBoxOutput = SandBoxOutput<Any>()
-  fun updateOutput(model: SandBoxInput.Model<Any>) {
-    val vtDispatcher = VirtualTimeDispatcher()
-    val timelines = model.timelines
-    val source0 = timelines[0].marbles.toTimedFlow(vtDispatcher)
-    val source1 = timelines[1].marbles.toTimedFlow(vtDispatcher)
-    GlobalScope.launch {
-      val list = source0
-        .flatMapLatest { x ->
-          source1.map {
-            it.copy(
-              time = vtDispatcher.currentTime,
-              value = x.value.toString() + it.value.toString())
-          }
-        }
-        .flowOn(vtDispatcher)
-        .toList()
-      sandBoxOutput.setModel(Timeline.Model(list))
-      window.setTimeout({ vtDispatcher.advanceUntilIdle() }, 0)
-    }
-  }
-  sandboxInput.setTimelinesChangeListener { model ->
-    updateOutput(model)
-  }
-  updateOutput(initialState)
-  document.getElementById("app")!!.appendComponent(sandboxInput)
-  document.getElementById("app")!!.appendComponent(sandBoxOutput)
-}
+  sandBox.setModel(SandBox.Model(
+    input = input,
+    label = "flatMapLatest",
+    transformer = { inputs ->
+      val s0 = inputs[0]
+      val s1 = inputs[1]
 
-class Queue {
-  private var elements = mutableListOf<Pair<Long, Runnable>>()
-  var time: Long = 0L
-    private set
-
-  fun post(delay: Long, block: Runnable) {
-    println("post $time $delay ${time + delay}")
-    elements.add(time + delay to block)
-  }
-
-  fun reset() {
-    elements = mutableListOf()
-    time = 0L
-  }
-
-  fun run() {
-    do {
-      elements.forEachIndexed { index, pair ->
-        val (t, b) = pair
-        if (time >= t) {
-          b.run()
-          elements.removeAt(index)
-        }
+      s0.flatMapLatest { x ->
+        s1.map { y -> y.copy(value = "${x.value}${y.value}") }
       }
-      if (elements.all { it.first > time }) time += 1
-    } while (elements.isNotEmpty())
-  }
+    }
+  ))
+  document.getElementById("app")!!.appendComponent(sandBox)
 }

@@ -8,11 +8,11 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.merge
 
 @InternalCoroutinesApi
-fun <T : Any> List<Marble.Model<T>>.toTimedFlow(vtDispatcher: VirtualTimeDispatcher): Flow<Marble.Model<T>> {
+fun <T : Any> List<Marble.Model<T>>.toTimedFlow(virtualTimeDispatcher: VirtualTimeDispatcher): Flow<Marble.Model<T>> {
   return map {
     flow {
       delay(it.time)
-      emit(it.copy(time = vtDispatcher.currentTime))
+      emit(it.copy(time = virtualTimeDispatcher.currentTime))
     }
   }.merge()
 }
