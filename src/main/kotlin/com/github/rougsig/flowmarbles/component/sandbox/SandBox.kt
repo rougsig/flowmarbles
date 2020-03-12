@@ -29,11 +29,18 @@ class SandBox<T : Any> : Component {
     setAttribute("class", "sandbox")
   }
 
+
+  private val title = createElement("p") {
+    setAttribute("class", "sandbox_title")
+    innerHTML = "Interactive diagrams of Kotlin Flow"
+  }
+
   private val input = SandBoxInput<T>()
   private val label = SandBoxLabel()
   private val output = SandBoxOutput<T>()
 
   init {
+    rootNode.appendChild(title)
     rootNode.appendComponent(input)
     rootNode.appendComponent(label)
     rootNode.appendComponent(output)

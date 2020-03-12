@@ -15,8 +15,14 @@ class Menu : Component {
     setAttribute("class", "menu")
   }
 
+  private val title = createElement("p") {
+    setAttribute("class", "menu_title")
+    innerHTML = "Flow Marbles"
+  }
+
   fun setModel(model: Model) {
     rootNode.innerHTML = ""
+    rootNode.appendChild(title)
     model.labels.forEachIndexed { index, label ->
       val item = MenuItem()
       item.setModel(label)
