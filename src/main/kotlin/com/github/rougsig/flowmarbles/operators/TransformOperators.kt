@@ -158,7 +158,7 @@ fun transformOperators() = listOf(
         )
       ),
       "scan(0) { acc, v -> acc + v }"
-    ) { inputs -> inputs[0].scan(marble(0, 0)) { acc, v -> acc + v } }
+    ) { inputs -> inputs[0].scan(marble(0, 0, Colors.accentColors[0])) { acc, v -> acc + v } }
   ),
   menuItem(
     label("scanReduce"),

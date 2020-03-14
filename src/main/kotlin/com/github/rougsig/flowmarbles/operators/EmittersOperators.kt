@@ -55,7 +55,6 @@ fun emittersOperators() = listOf(
       "onCompletion { emit(\"D\") }"
     ) { inputs ->
       inputs[0].onCompletion {
-        delay(50)
         emit(marble("D", 0, Colors.accentColors[0]))
       }
     }

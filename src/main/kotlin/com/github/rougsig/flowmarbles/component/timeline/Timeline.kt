@@ -47,7 +47,21 @@ class Timeline<T : Any>(
   init {
     list.adapter = { marbles ->
       marbles.filter { it.time <= MAX_TIME }.mapIndexed { index, marble ->
-        TimelineItem(marble).apply {
+        val prevMarble = marbles.getOrNull(index - 1)
+        val nextMarble = marbles.getOrNull(index + 1)
+        val isNext = nextMarble != null
+          && (nextMarble.time + 20) >= marble.time
+          && (nextMarble.time - 20) <= marble.time
+        val isPrev = prevMarble != null
+          && (prevMarble.time + 20) >= marble.time
+          && (prevMarble.time - 20) <= marble.time
+        val posY = when {
+          isNext && isPrev -> 1L
+          isPrev -> 7L
+          isNext -> -4L
+          else -> 1L
+        }
+        TimelineItem(marble, posY).apply {
           if (isEditable) dragListener = { time ->
             timelineChangeListener?.invoke(list.data?.toMutableList()?.apply {
               set(index, get(index).copy(time = time))

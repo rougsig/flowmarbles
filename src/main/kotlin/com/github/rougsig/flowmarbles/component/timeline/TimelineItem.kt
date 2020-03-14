@@ -7,14 +7,14 @@ import org.w3c.dom.events.Event
 import org.w3c.dom.events.MouseEvent
 import kotlin.browser.document
 
-class TimelineItem<T : Any>(model: Marble.Model<T>) : Component {
+class TimelineItem<T : Any>(model: Marble.Model<T>, posY: Long = 1) : Component {
   var dragListener: ((Long) -> Unit)? = null
     set(value) {
       if (value != null) rootNode.setAttribute("style", "cursor: ew-resize;")
       else rootNode.setAttribute("style", "cursor: default;")
       field = value
     }
-  private val marble = Marble(model)
+  private val marble = Marble(model, posY)
   override val rootNode = marble.rootNode
 
   init {

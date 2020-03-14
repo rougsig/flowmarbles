@@ -3,7 +3,7 @@ package com.github.rougsig.flowmarbles.component.timeline
 import com.github.rougsig.flowmarbles.core.Component
 import com.github.rougsig.flowmarbles.core.svg
 
-class Marble<T : Any>(model: Model<T>) : Component {
+class Marble<T : Any>(model: Model<T>, posY: Long = 1) : Component {
   data class Model<T : Any>(
     val color: String,
     val time: Long,
@@ -41,7 +41,7 @@ class Marble<T : Any>(model: Model<T>) : Component {
   }
 
   override val rootNode = svg("g") {
-    attr("transform", "translate(${model.time}, 5)")
+    attr("transform", "translate(${model.time}, ${posY * 5})")
     element(circle)
     element(value)
   }
