@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-java@v1
+      with:
+        java-version: 11
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x ./gradlew
+      
+    - name: Run gradle build
+      run: ./gradlew build
+    
+    - name: Upload
+      uses: appleboy/scp-action@v0.0.1
+      env:
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PASSWORD: ${{ secrets.PASSWORD  }}
+        SOURCE: "build/distributions"
+        TARGET: "/srv/web/rougsig/flowmarbles"
