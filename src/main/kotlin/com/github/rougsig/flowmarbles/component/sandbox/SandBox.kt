@@ -19,7 +19,6 @@ import kotlin.browser.window
 
 typealias SandBoxTransformer<T> = (inputs: List<Flow<Marble.Model<T>>>) -> Flow<Marble.Model<T>>
 
-@InternalCoroutinesApi
 class SandBox<T : Any> : Component {
   data class Model<T : Any>(
     val input: SandBoxInput.Model<T>,
@@ -32,17 +31,11 @@ class SandBox<T : Any> : Component {
   }
 
 
-  private val title = createElement("p") {
-    setAttribute("class", "sandbox_title")
-    innerHTML = "Interactive diagrams of Kotlin Flow"
-  }
-
   private val input = SandBoxInput<T>()
   private val label = SandBoxLabel()
   private val output = SandBoxOutput<T>()
 
   init {
-    rootNode.appendChild(title)
     rootNode.appendComponent(input)
     rootNode.appendComponent(label)
     rootNode.appendComponent(output)

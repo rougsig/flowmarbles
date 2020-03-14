@@ -19,7 +19,7 @@ interface DelayController {
 
 // Huge thanks to
 // https://github.com/Kotlin/kotlinx.coroutines/tree/master/kotlinx-coroutines-test
-@InternalCoroutinesApi
+@OptIn(InternalCoroutinesApi::class)
 class VirtualTimeDispatcher : CoroutineDispatcher(), Delay,
   DelayController {
   private var dispatchImmediately = true
@@ -124,7 +124,7 @@ private class CancellableContinuationRunnable<T>(
   }
 }
 
-@InternalCoroutinesApi
+@OptIn(InternalCoroutinesApi::class)
 private class TimedRunnable(
   val runnable: Runnable,
   private val count: Long = 0,

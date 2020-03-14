@@ -1,26 +1,57 @@
 package com.github.rougsig.flowmarbles
 
 import com.github.rougsig.flowmarbles.component.menu.Menu
+import com.github.rougsig.flowmarbles.component.menu.Menu.Model.Item
+import com.github.rougsig.flowmarbles.component.row
 import com.github.rougsig.flowmarbles.component.sandbox.SandBox
-import com.github.rougsig.flowmarbles.component.sandbox.SandBoxInput
-import com.github.rougsig.flowmarbles.component.timeline.Marble
-import com.github.rougsig.flowmarbles.component.timeline.Timeline
-import com.github.rougsig.flowmarbles.core.appendComponent
-import com.github.rougsig.flowmarbles.operators.operators
+import com.github.rougsig.flowmarbles.core.html
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.map
 import kotlin.browser.document
 
-@InternalCoroutinesApi
 fun main() {
-  val sandBox = SandBox<Any>()
+  val app = document.getElementById("app")!!
+  val header = html("header") {
+    attr("class", "header")
+    tag("p") {
+      attr("class", "header_title")
+      tag("span") {
+        text = "Flow Marbles:"
+      }
+      text = " Interactive diagram of Kotlin Flow"
+    }
+  }
   val menu = Menu()
+  val row = row {
+    col(SandBox<Any>()) {
+      attr("style", "flex: 1;")
+    }
+    col(menu)
+  }
 
-  menu.setModel(Menu.Model(operators.map { it.first }))
-  menu.setOnItemClickListener { sandBox.setModel(operators[it].second) }
-  sandBox.setModel(operators.first().second)
+  menu.model = Menu.Model(
+    listOf(
+      Item.Header("creation"),
+      Item.Label("from"),
+      Item.Label("interval"),
+      Item.Label("of"),
+      Item.Label("timer"),
+      Item.Header("creation"),
+      Item.Label("from"),
+      Item.Label("interval"),
+      Item.Label("of"),
+      Item.Label("timer"),
+      Item.Header("creation"),
+      Item.Label("from"),
+      Item.Label("interval"),
+      Item.Label("of"),
+      Item.Label("timer")
+    ),
+    selectedItem = null
+  )
+  menu.itemClickListener = { item ->
+    menu.model = menu.model?.copy(selectedItem = item)
+  }
 
-  document.getElementById("app")!!.appendComponent(menu)
-  document.getElementById("app")!!.appendComponent(sandBox)
+  app.appendChild(header)
+  app.appendChild(row)
 }
