@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.sample
 fun contextOperators() = listOf(
   menuItem(header("delay"), null),
   menuItem(
-    label("debounce", hasBug = true),
+    label("debounce"),
     sandbox(
       inputs(
         input(
@@ -21,8 +21,8 @@ fun contextOperators() = listOf(
           marble("5", 900)
         )
       ),
-      "debounce(500)"
-    ) { inputs -> inputs[0].debounce(500) }
+      "debounce(250)"
+    ) { inputs -> inputs[0].debounce(250) }
   ),
   menuItem(
     label("sample"),

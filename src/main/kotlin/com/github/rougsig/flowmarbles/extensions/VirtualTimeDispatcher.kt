@@ -19,6 +19,7 @@ interface DelayController {
 
 // Huge thanks to
 // https://github.com/Kotlin/kotlinx.coroutines/tree/master/kotlinx-coroutines-test
+@ExperimentalCoroutinesApi
 @OptIn(InternalCoroutinesApi::class)
 class VirtualTimeDispatcher : CoroutineDispatcher(), Delay,
   DelayController {
@@ -43,24 +44,25 @@ class VirtualTimeDispatcher : CoroutineDispatcher(), Delay,
   }
 
   override fun scheduleResumeAfterDelay(timeMillis: Long, continuation: CancellableContinuation<Unit>) {
-    postDelayed(
-      CancellableContinuationRunnable(
-        continuation
-      ) { resumeUndispatched(Unit) }, timeMillis)
+    postDelayed(CancellableContinuationRunnable(continuation) { resumeUndispatched(Unit) }, timeMillis)
+  }
+
+  override fun invokeOnTimeout(timeMillis: Long, block: Runnable): DisposableHandle {
+    val node = postDelayed(block, timeMillis)
+    return object : DisposableHandle {
+      override fun dispose() {
+        queue.remove(node)
+      }
+    }
   }
 
   private fun post(block: Runnable) {
     queue.addLast(TimedRunnable(block, ++counter))
   }
 
-  private fun postDelayed(block: Runnable, delayTime: Long) {
-    queue.addLast(
-      TimedRunnable(
-        block,
-        ++counter,
-        currentTime + delayTime
-      )
-    )
+  private fun postDelayed(block: Runnable, delayTime: Long): TimedRunnable {
+    return TimedRunnable(block, ++counter, currentTime + delayTime)
+      .also { queue.addLast(it) }
   }
 
   private fun doActionsUntil(targetTime: Long) {
