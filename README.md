@@ -1,4 +1,5 @@
 # Flow Marbles
+![CI](https://github.com/rougsig/flowmarbles/workflows/CI/badge.svg?branch=master)
 ### Interactive diagram of Kotlin Flow
 
 ![site](./readme/site.png)
