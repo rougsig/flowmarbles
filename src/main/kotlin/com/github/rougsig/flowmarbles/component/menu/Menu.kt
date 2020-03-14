@@ -32,8 +32,13 @@ class Menu : Component {
 
   var itemSelectedListener: ((Int, Item) -> Unit)? = null
 
+  private var currentModel: Model? = null
+    set(value) {
+      field = value
+      list.data = value
+    }
   fun setModel(model: Model) {
-    list.data = model
+    currentModel = model
   }
 
   init {
@@ -65,7 +70,7 @@ class Menu : Component {
 
     val nothingFound = listOf(Item.NothingFound("operators not found"))
     search.onTextChangeListener = { query ->
-      val filteredItems = list.data?.items?.filter { it.label.contains(query) && it !is Item.Header || query.isBlank() }
+      val filteredItems = currentModel?.items?.filter { it.label.contains(query) && it !is Item.Header || query.isBlank() }
       list.data = list.data?.copy(items = if (filteredItems.isNullOrEmpty()) nothingFound else filteredItems)
     }
   }

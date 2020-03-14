@@ -2,19 +2,36 @@ package com.github.rougsig.flowmarbles.component.timeline
 
 import com.github.rougsig.flowmarbles.core.Component
 import com.github.rougsig.flowmarbles.core.svg
+import com.github.rougsig.flowmarbles.extensions.mixColors
 
 class Marble<T : Any>(model: Model<T>) : Component {
   data class Model<T : Any>(
     val color: String,
     val time: Long,
     val value: T
-  )
+  ) {
+    operator fun plus(other: Model<T>): Model<T> {
+      val newValue: T = if (this.value as? Int != null && other.value as? Int != null) {
+        (value + other.value) as T
+      } else if (this.value as? String != null && other.value as? String != null) {
+        (this.value + other.value) as T
+      } else {
+        error("unknown value type: $value. Expected String or Int.")
+      }
+
+      return Model(
+        other.color,
+        time + other.time,
+        newValue
+      )
+    }
+  }
 
   private val circle = svg("circle") {
     attr("fill", model.color)
     attr("r", "2.5")
     attr("stroke", "black")
-    attr("stroke-width", "0.5")
+    attr("stroke-width", "0.35")
   }
 
   private val value = svg("text") {

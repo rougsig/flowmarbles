@@ -56,8 +56,8 @@ body, input {
 
 .menu_header {
   text-transform: uppercase;
-  height: auto;
-  line-height: normal;
+  height: 20px;
+  line-height: 20px;
   margin-top: 20px;
 }
 

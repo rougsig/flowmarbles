@@ -13,8 +13,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import kotlin.browser.window
-import kotlin.dom.addClass
-import kotlin.dom.removeClass
 
 typealias SandBoxTransformer<T> = (inputs: List<Flow<Marble.Model<T>>>) -> Flow<Marble.Model<T>>
 
@@ -52,7 +50,7 @@ class SandBox<T : Any> : Component {
     job?.cancel()
     job = GlobalScope.launch {
       output.setModel(
-        transformer(input.map { it.toTimedFlow(virtualTimeDispatcher) })
+        transformer(input.map { it.toTimedFlow() })
           .map { it.copy(time = virtualTimeDispatcher.currentTime) }
           .flowOn(virtualTimeDispatcher)
           .toList()

@@ -1,36 +1,32 @@
 package com.github.rougsig.flowmarbles.operators
 
 import com.github.rougsig.flowmarbles.component.sandbox.SandBox
-import com.github.rougsig.flowmarbles.component.sandbox.SandBoxInput
 import com.github.rougsig.flowmarbles.component.sandbox.SandBoxTransformer
 import com.github.rougsig.flowmarbles.component.timeline.Marble
-import com.github.rougsig.flowmarbles.component.timeline.Timeline
-import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 
 private val colors = listOf(
-  "#ff5252",
-  "#ff4081",
-  "#e040fb",
-  "#7c4dff",
-  "#536dfe",
-  "#448aff",
-  "#40c4ff",
-  "#18ffff",
-  "#64ffda",
-  "#64ffda",
-  "#b2ff59",
-  "#eeff41",
-  "#ffff00",
-  "#ffd740",
-  "#ffab40",
-  "#ff6e40"
-).shuffled()
+  "#F90000",
+  "#F69602",
+  "#F9EE07",
+  "#45C938",
+  "#1E66FF"
+)
 
+fun colorGenerator(colors: List<String>): () -> String {
+  var currentIndex = -1
+  return {
+    if (currentIndex >= colors.lastIndex) currentIndex = 0
+    else currentIndex += 1
+    colors[currentIndex]
+  }
+}
+
+private val nextColor = colorGenerator(colors.shuffled())
 
 private fun <T : Any> marble(value: T, time: Long, color: String? = null): Marble.Model<T> {
-  return Marble.Model(color ?: colors.random(), time, value)
+  return Marble.Model(color ?: nextColor(), time, value)
 }
 
 private fun <T : Any> input(vararg marbles: Marble.Model<T>): List<Marble.Model<T>> {
@@ -237,7 +233,7 @@ val operators = listOf(
       transformer = { inputs ->
         val s0 = inputs[0]
         val s1 = inputs[1]
-        s0.flatMapLatest { a -> s1.map { b -> b.copy(value = a.value + b.value) } }
+        s0.flatMapLatest { a -> s1.map { b -> a + b } }
       }
     )
   )
