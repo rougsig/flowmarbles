@@ -6,12 +6,6 @@ import com.github.rougsig.flowmarbles.component.row
 import com.github.rougsig.flowmarbles.component.sandbox.SandBox
 import com.github.rougsig.flowmarbles.core.html
 import com.github.rougsig.flowmarbles.operators.operators
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
 import org.w3c.dom.HashChangeEvent
 import kotlin.browser.document
 import kotlin.browser.window
@@ -28,33 +22,34 @@ fun main() {
       text = " Interactive diagram of Kotlin Flow"
     }
   }
-  val menu = Menu()
-  val sandBox = SandBox<Any>()
-  val row = row {
-    col(sandBox) { attr("style", "flex: 1;") }
-    col(menu)
-  }
-
   val items = operators.map { it.first }
-  fun updateSandBox() {
-    menu.model?.selectedItem?.let { selectedItem ->
-      val selectedSandBox = operators.find { it.first == selectedItem }?.second
-      if (selectedSandBox != null) sandBox.setModel(selectedSandBox)
-    }
-  }
 
   fun findItemByHash(hash: String): Item? {
     return (operators.find { it.first.label == hash && it.second != null })?.first ?: items.find { it is Item.Label }
   }
 
-  menu.model = Menu.Model(items, findItemByHash(window.location.hash.drop(1)))
+  val menu = Menu(items, findItemByHash(window.location.hash.drop(1)))
+  val sandBox = SandBox<Any>()
+
+  fun updateSandBox() {
+    menu.selectedItem?.let { selectedItem ->
+      val selectedSandBox = operators.find { it.first == selectedItem }?.second
+      if (selectedSandBox != null) sandBox.setModel(selectedSandBox)
+    }
+  }
+
+  val row = row {
+    col(sandBox) { attr("style", "flex: 1;") }
+    col(menu)
+  }
+
   menu.itemSelectedListener = { _, item -> window.location.hash = "#${item.label}" }
   updateSandBox()
 
   window.addEventListener("hashchange", {
     val hash = (it as HashChangeEvent).newURL.dropWhile { it != '#' }.drop(1)
     val selectedItem = findItemByHash(hash)
-    menu.model = Menu.Model(items, selectedItem)
+    menu.selectedItem = selectedItem
     updateSandBox()
   })
 

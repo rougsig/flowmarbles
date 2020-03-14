@@ -5,7 +5,10 @@ import com.github.rougsig.flowmarbles.core.Component
 import com.github.rougsig.flowmarbles.core.ListComponent
 import com.github.rougsig.flowmarbles.core.html
 
-class Menu : Component {
+class Menu(
+  private val items: List<Item>,
+  selectedItem: Item?
+) : Component {
   data class Model(
     val items: List<Item>,
     val selectedItem: Item?
@@ -33,10 +36,10 @@ class Menu : Component {
 
   var itemSelectedListener: ((Int, Item) -> Unit)? = null
 
-  var model: Model? = null
+  var selectedItem: Item? = selectedItem
     set(value) {
+      list.data = list.data?.copy(selectedItem = value)
       field = value
-      list.data = value
     }
 
   init {
@@ -71,9 +74,11 @@ class Menu : Component {
       }
     }
 
+    list.data = Model(items, selectedItem)
+
     val nothingFound = listOf(Item.NothingFound("operators not found"))
     search.onTextChangeListener = { query ->
-      val filteredItems = model?.items?.filter { it.label.contains(query) && it !is Item.Header || query.isBlank() }
+      val filteredItems = items.filter { it.label.contains(query) && it !is Item.Header || query.isBlank() }
       list.data = list.data?.copy(items = if (filteredItems.isNullOrEmpty()) nothingFound else filteredItems)
     }
   }
