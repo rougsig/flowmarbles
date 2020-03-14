@@ -15,7 +15,7 @@ fun main() {
     tag("p") {
       attr("class", "header_title")
       tag("span") {
-        text = "Flow Marbles:"
+        text = "Flow Marbles"
       }
       text = " Interactive diagram of Kotlin Flow"
     }
