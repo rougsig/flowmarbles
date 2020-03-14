@@ -118,4 +118,5 @@ body, input {
   line-height: 72px;
   text-align: center;
   width: 100%;
+  user-select: none;
 }
