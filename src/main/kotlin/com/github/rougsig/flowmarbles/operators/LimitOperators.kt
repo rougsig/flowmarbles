@@ -1,10 +1,12 @@
 package com.github.rougsig.flowmarbles.operators
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.dropWhile
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.takeWhile
 
+@ExperimentalCoroutinesApi
 fun limitOperators() = listOf(
   menuItem(header("limit"), null),
   menuItem(

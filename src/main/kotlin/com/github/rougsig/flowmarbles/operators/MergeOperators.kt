@@ -1,8 +1,12 @@
 package com.github.rougsig.flowmarbles.operators
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 fun mergeOperators() = listOf(
   menuItem(header("merge"), null),
   menuItem(
@@ -19,8 +23,8 @@ fun mergeOperators() = listOf(
           marble("B", 100)
         )
       ),
-      "flow1.flatMapConcat { a -> flow2 }"
-    ) { inputs -> inputs[0].flatMapConcat { a -> inputs[1] } }
+      "flow1.flatMapConcat { flow2 }"
+    ) { inputs -> inputs[0].flatMapConcat { inputs[1] } }
   ),
   menuItem(
     label("flatMapMerge"),
@@ -36,8 +40,8 @@ fun mergeOperators() = listOf(
           marble("B", 200)
         )
       ),
-      "flow1.flatMapMerge { a -> flow2 }"
-    ) { inputs -> inputs[0].flatMapMerge { a -> inputs[1] } }
+      "flow1.flatMapMerge { flow2 }"
+    ) { inputs -> inputs[0].flatMapMerge { inputs[1] } }
   ),
   menuItem(
     label("flatMapLatest"),
@@ -53,8 +57,8 @@ fun mergeOperators() = listOf(
           marble("B", 200)
         )
       ),
-      "flow1.flatMapLatest { a -> flow2 }"
-    ) { inputs -> inputs[0].flatMapLatest { a -> inputs[1] } }
+      "flow1.flatMapLatest { flow2 }"
+    ) { inputs -> inputs[0].flatMapLatest { inputs[1] } }
   ),
   menuItem(
     label("merge"),

@@ -5,17 +5,15 @@ import com.github.rougsig.flowmarbles.core.Component
 import com.github.rougsig.flowmarbles.core.html
 import com.github.rougsig.flowmarbles.extensions.VirtualTimeDispatcher
 import com.github.rougsig.flowmarbles.extensions.toTimedFlow
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.plus
 import kotlin.browser.window
 
 typealias SandBoxTransformer<T> = (inputs: List<Flow<Marble.Model<T>>>) -> Flow<Marble.Model<T>>
 
+@ExperimentalCoroutinesApi
 class SandBox<T : Any> : Component {
   data class Model<T : Any>(
     val input: List<List<Marble.Model<T>>>,
@@ -50,7 +48,7 @@ class SandBox<T : Any> : Component {
     job?.cancel()
     job = (GlobalScope + virtualTimeDispatcher).launch {
       output.setModel(
-        transformer(input.map { it.toTimedFlow(virtualTimeDispatcher) })
+        transformer(input.map { it.toTimedFlow() })
           .map { it.copy(time = virtualTimeDispatcher.currentTime) }
           .toList()
       )

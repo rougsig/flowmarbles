@@ -1,8 +1,12 @@
 package com.github.rougsig.flowmarbles.operators
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.sample
 
+@FlowPreview
+@ExperimentalCoroutinesApi
 fun contextOperators() = listOf(
   menuItem(header("delay"), null),
   menuItem(

@@ -1,9 +1,11 @@
 package com.github.rougsig.flowmarbles.operators
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.combineTransform
 import kotlinx.coroutines.flow.zip
 
+@ExperimentalCoroutinesApi
 fun zipOperators() = listOf(
   menuItem(header("zip"), null),
   menuItem(

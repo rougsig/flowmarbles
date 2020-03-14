@@ -4,6 +4,7 @@ import com.github.rougsig.flowmarbles.component.menu.Menu
 import com.github.rougsig.flowmarbles.component.sandbox.SandBox
 import com.github.rougsig.flowmarbles.component.sandbox.SandBoxTransformer
 import com.github.rougsig.flowmarbles.component.timeline.Marble
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 // Do no delete object
 // without it we have that error TypeError: $receiver is undefined
@@ -31,18 +32,20 @@ fun <T : Any> inputs(vararg inputs: List<Marble.Model<T>>): List<List<Marble.Mod
   return inputs.toList()
 }
 
+@ExperimentalCoroutinesApi
 fun <T : Any> sandbox(
   input: List<List<Marble.Model<T>>>,
   label: String,
   transformer: SandBoxTransformer<T>
 ): SandBox.Model<Any> {
   return SandBox.Model(
-    input as List<List<Marble.Model<Any>>>,
+    input.unsafeCast<List<List<Marble.Model<Any>>>>(),
     label,
-    transformer as SandBoxTransformer<Any>
+    transformer.unsafeCast<SandBoxTransformer<Any>>()
   )
 }
 
+@ExperimentalCoroutinesApi
 fun menuItem(
   label: Menu.Model.Item,
   sandBox: SandBox.Model<Any>?

@@ -1,8 +1,10 @@
 package com.github.rougsig.flowmarbles.operators
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 
+@ExperimentalCoroutinesApi
 fun transformOperators() = listOf(
   menuItem(header("transform"), null),
   menuItem(

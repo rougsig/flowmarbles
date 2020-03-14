@@ -1,10 +1,12 @@
 package com.github.rougsig.flowmarbles.operators
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.transform
 
+@ExperimentalCoroutinesApi
 fun emittersOperators() = listOf(
   menuItem(header("emitters"), null),
   menuItem(
