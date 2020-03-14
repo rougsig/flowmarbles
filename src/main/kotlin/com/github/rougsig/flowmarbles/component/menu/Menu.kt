@@ -16,6 +16,7 @@ class Menu : Component {
       data class Header(override val label: String) : Item()
       data class NothingFound(override val label: String) : Item()
       data class Label(override val label: String) : Item()
+      data class Bug(override val label: String) : Item()
     }
   }
 
@@ -53,6 +54,14 @@ class Menu : Component {
           is Item.Label -> html("p") {
             attr("class", buildString {
               append("menu_item")
+              if (item === model.selectedItem) append(" menu_item--selected")
+            })
+            text = item.label
+            clickListener = { itemSelectedListener?.invoke(index, item) }
+          }
+          is Item.Bug -> html("p") {
+            attr("class", buildString {
+              append("menu_item menu_item--bugged")
               if (item === model.selectedItem) append(" menu_item--selected")
             })
             text = item.label

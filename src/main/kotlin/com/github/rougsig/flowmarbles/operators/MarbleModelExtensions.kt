@@ -1,29 +1,23 @@
 package com.github.rougsig.flowmarbles.operators
 
+import com.github.rougsig.flowmarbles.component.menu.Menu
 import com.github.rougsig.flowmarbles.component.sandbox.SandBox
 import com.github.rougsig.flowmarbles.component.sandbox.SandBoxTransformer
 import com.github.rougsig.flowmarbles.component.timeline.Marble
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
 
-private val colors = listOf(
-  "#F90000",
-  "#F69602",
-  "#F9EE07",
-  "#45C938",
-  "#1E66FF"
-)
-
-fun colorGenerator(colors: List<String>): () -> String {
-  var currentIndex = -1
-  return {
-    if (currentIndex >= colors.lastIndex) currentIndex = 0
-    else currentIndex += 1
-    colors[currentIndex]
-  }
+// Do no delete object
+// without it we have that error TypeError: $receiver is undefined
+object Colors {
+  val colors = listOf("#F90000", "#F69602", "#F9EE07", "#45C938", "#1E66FF")
+  val accentColors = listOf("#b388ff")
 }
 
-val nextColor = colorGenerator(colors.shuffled())
+private var currentIndex = -1
+fun nextColor(): String {
+  if (currentIndex >= Colors.colors.lastIndex) currentIndex = 0
+  else currentIndex += 1
+  return Colors.colors[currentIndex]
+}
 
 fun <T : Any> marble(value: T, time: Long, color: String? = null): Marble.Model<T> {
   return Marble.Model(color ?: nextColor(), time, value)
@@ -42,7 +36,7 @@ fun <T : Any> sandbox(
   label: String,
   transformer: SandBoxTransformer<T>
 ): SandBox.Model<Any> {
-  return SandBox.Model<Any>(
+  return SandBox.Model(
     input as List<List<Marble.Model<Any>>>,
     label,
     transformer as SandBoxTransformer<Any>
@@ -50,8 +44,17 @@ fun <T : Any> sandbox(
 }
 
 fun menuItem(
-  label: String,
+  label: Menu.Model.Item,
   sandBox: SandBox.Model<Any>?
-): Pair<String, SandBox.Model<Any>?> {
+): Pair<Menu.Model.Item, SandBox.Model<Any>?> {
   return label to sandBox
+}
+
+fun label(label: String, hasBug: Boolean = false): Menu.Model.Item {
+  return if (hasBug) Menu.Model.Item.Bug(label)
+  else Menu.Model.Item.Label(label)
+}
+
+fun header(label: String): Menu.Model.Item.Header {
+  return Menu.Model.Item.Header(label)
 }

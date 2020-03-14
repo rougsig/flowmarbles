@@ -28,15 +28,15 @@ class Marble<T : Any>(model: Model<T>) : Component {
 
   private val circle = svg("circle") {
     attr("fill", model.color)
-    attr("r", "2.5")
+    attr("r", "25")
     attr("stroke", "black")
-    attr("stroke-width", "0.35")
+    attr("stroke-width", "3.5")
   }
 
   private val value = svg("text") {
-    attr("style", "user-select: none; font-size: 2.5px; font-family: 'Roboto Mono', monospace;")
+    attr("style", "user-select: none; font-size: 25px; font-family: 'Roboto Mono', monospace;")
     attr("text-anchor", "middle")
-    attr("y", "1")
+    attr("y", "8")
     text = model.value.toString()
   }
 

@@ -9,9 +9,13 @@ class Timeline<T : Any>(
   timeline: List<Marble.Model<T>>,
   private val isEditable: Boolean = true
 ) : Component {
+  companion object {
+    const val MAX_TIME = 1000L
+  }
+
   private val list = ListComponent<List<Marble.Model<T>>>(svg("svg") {
     attr("style", "overflow: visible;")
-    attr("viewBox", "0 0 100 10")
+    attr("viewBox", "0 0 $MAX_TIME 10")
     attr("height", "72px")
     attr("width", "640px")
   })
@@ -42,7 +46,7 @@ class Timeline<T : Any>(
 
   init {
     list.adapter = { marbles ->
-      marbles.filter { it.time <= 100.0 }.mapIndexed { index, marble ->
+      marbles.filter { it.time <= MAX_TIME }.mapIndexed { index, marble ->
         TimelineItem(marble).apply {
           if (isEditable) dragListener = { time ->
             timelineChangeListener?.invoke(list.data?.toMutableList()?.apply {

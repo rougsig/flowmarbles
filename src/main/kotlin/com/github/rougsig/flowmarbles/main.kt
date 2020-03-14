@@ -6,6 +6,12 @@ import com.github.rougsig.flowmarbles.component.row
 import com.github.rougsig.flowmarbles.component.sandbox.SandBox
 import com.github.rougsig.flowmarbles.core.html
 import com.github.rougsig.flowmarbles.operators.operators
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import org.w3c.dom.HashChangeEvent
 import kotlin.browser.document
 import kotlin.browser.window
@@ -38,7 +44,7 @@ fun main() {
   }
 
   fun findItemByHash(hash: String): Item? {
-    return items.find { it.label == hash } ?: items.find { it is Item.Label }
+    return (operators.find { it.first.label == hash && it.second != null })?.first ?: items.find { it is Item.Label }
   }
 
   menu.model = Menu.Model(items, findItemByHash(window.location.hash.drop(1)))

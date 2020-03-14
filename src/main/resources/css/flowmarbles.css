@@ -72,6 +72,15 @@ body, input {
   color: black;
 }
 
+.menu_item--bugged {
+  position: relative;
+}
+
+.menu_item--bugged:after {
+  content: " BUG";
+  color: red;
+}
+
 .search {
   position: relative;
 }

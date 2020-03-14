@@ -1,5 +1,6 @@
 package com.github.rougsig.flowmarbles.component.timeline
 
+import com.github.rougsig.flowmarbles.component.timeline.Timeline.Companion.MAX_TIME
 import com.github.rougsig.flowmarbles.core.Component
 import org.w3c.dom.DOMRect
 import org.w3c.dom.events.Event
@@ -18,14 +19,14 @@ class TimelineItem<T : Any>(model: Marble.Model<T>) : Component {
       val rect = down.asDynamic().currentTarget.parentElement.getBoundingClientRect() as DOMRect
       val width = rect.width
       val left = rect.left
-      val ratio = 100 / width
+      val ratio = MAX_TIME / width
       val percent = { x: Double ->
-        val pos = (x - left) * ratio
+        val pos = ((x - left) * ratio).toLong()
         when {
-          pos > 100 -> 100.0
-          pos < 0 -> 0.0
+          pos > MAX_TIME -> MAX_TIME
+          pos < 0 -> 0L
           else -> pos
-        }.toLong()
+        }
       }
 
       val moveListener = { move: Event ->

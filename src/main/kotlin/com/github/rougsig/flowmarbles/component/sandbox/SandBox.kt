@@ -8,10 +8,10 @@ import com.github.rougsig.flowmarbles.extensions.toTimedFlow
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.plus
 import kotlin.browser.window
 
 typealias SandBoxTransformer<T> = (inputs: List<Flow<Marble.Model<T>>>) -> Flow<Marble.Model<T>>
@@ -46,16 +46,19 @@ class SandBox<T : Any> : Component {
   private var job: Job? = null
   private fun invalidateOutput(input: List<List<Marble.Model<T>>>, transformer: SandBoxTransformer<T>) {
     val virtualTimeDispatcher = VirtualTimeDispatcher()
+    virtualTimeDispatcher.pauseDispatcher()
     job?.cancel()
-    job = GlobalScope.launch {
+    job = (GlobalScope + virtualTimeDispatcher).launch {
       output.setModel(
-        transformer(input.map { it.toTimedFlow() })
+        transformer(input.map { it.toTimedFlow(virtualTimeDispatcher) })
           .map { it.copy(time = virtualTimeDispatcher.currentTime) }
-          .flowOn(virtualTimeDispatcher)
           .toList()
       )
     }
-    window.setTimeout({ virtualTimeDispatcher.advanceUntilIdle() }, 0)
+    window.setTimeout({
+      virtualTimeDispatcher.resumeDispatcher()
+      virtualTimeDispatcher.advanceUntilIdle()
+    }, 0)
   }
 
   init {
