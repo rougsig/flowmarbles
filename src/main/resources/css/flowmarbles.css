@@ -24,6 +24,7 @@ body, input {
 }
 
 .menu {
+  padding-bottom: 128px;
 }
 
 .menu_header,
@@ -97,4 +98,14 @@ body, input {
   height: 28px;
   width: 100%;
   box-sizing: border-box;
+}
+
+.sandbox {
+  width: 100%;
+}
+
+.sandbox_label {
+  line-height: 72px;
+  text-align: center;
+  width: 100%;
 }

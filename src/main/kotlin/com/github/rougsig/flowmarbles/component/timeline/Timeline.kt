@@ -12,7 +12,7 @@ class Timeline<T : Any>(
   private val list = ListComponent<List<Marble.Model<T>>>(svg("svg") {
     attr("style", "overflow: visible;")
     attr("viewBox", "0 0 100 10")
-    attr("height", "64px")
+    attr("height", "72px")
     attr("width", "640px")
   })
 
