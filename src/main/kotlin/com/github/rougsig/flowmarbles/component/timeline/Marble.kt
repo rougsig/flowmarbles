@@ -2,7 +2,6 @@ package com.github.rougsig.flowmarbles.component.timeline
 
 import com.github.rougsig.flowmarbles.core.Component
 import com.github.rougsig.flowmarbles.core.svg
-import com.github.rougsig.flowmarbles.extensions.mixColors
 
 class Marble<T : Any>(model: Model<T>) : Component {
   data class Model<T : Any>(

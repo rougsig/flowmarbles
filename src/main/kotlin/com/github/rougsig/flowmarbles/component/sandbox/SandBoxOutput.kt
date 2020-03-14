@@ -9,6 +9,6 @@ class SandBoxOutput<T : Any> : Component {
   override val rootNode = timeline.rootNode
 
   fun setModel(marbles: List<Marble.Model<T>>) {
-    timeline.setMarbles(marbles.filter { it.time <= 100.0 })
+    timeline.setMarbles(marbles)
   }
 }

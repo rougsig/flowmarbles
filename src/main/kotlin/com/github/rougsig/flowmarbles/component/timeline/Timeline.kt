@@ -42,7 +42,7 @@ class Timeline<T : Any>(
 
   init {
     list.adapter = { marbles ->
-      marbles.mapIndexed { index, marble ->
+      marbles.filter { it.time <= 100.0 }.mapIndexed { index, marble ->
         TimelineItem(marble).apply {
           if (isEditable) dragListener = { time ->
             timelineChangeListener?.invoke(list.data?.toMutableList()?.apply {
@@ -50,7 +50,7 @@ class Timeline<T : Any>(
             } ?: emptyList())
           }
         }.rootNode
-      }
+      }.plus(EndMarker(marbles.maxBy { it.time }?.time ?: 0).rootNode)
     }
 
     setMarbles(timeline)

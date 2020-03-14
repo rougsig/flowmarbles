@@ -25,6 +25,7 @@ body, input {
 
 .menu {
   padding-bottom: 128px;
+  padding-top: 20px;
 }
 
 .menu_header,
