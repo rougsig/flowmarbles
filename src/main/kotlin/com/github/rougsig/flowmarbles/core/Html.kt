@@ -5,8 +5,8 @@ import org.w3c.dom.events.Event
 import kotlin.browser.document
 import kotlin.dom.appendText
 
-open class ComponentBuilder(tag: String) {
-  private val element = document.createElement(tag)
+open class ComponentBuilder(tag: String, private val createElement: (String) -> Element) {
+  private val element = createElement(tag)
   private var attrs: Map<String, String> = emptyMap()
   var text: String? = null
   var clickListener: ((Event) -> Unit)? = null
@@ -16,11 +16,11 @@ open class ComponentBuilder(tag: String) {
   }
 
   fun tag(tag: String, block: ComponentBuilder.() -> Unit = {}) {
-    element.appendChild(ComponentBuilder(tag).also(block).build())
+    element.appendChild(ComponentBuilder(tag, createElement).also(block).build())
   }
 
   fun component(component: Component) {
-    element.appendComponent(component)
+    element.appendChild(component.rootNode)
   }
 
   fun element(element: Element) {
@@ -36,5 +36,13 @@ open class ComponentBuilder(tag: String) {
 }
 
 fun html(tag: String, block: ComponentBuilder.() -> Unit = {}): Element {
-  return ComponentBuilder(tag).also(block).build()
+  return ComponentBuilder(tag) { document.createElement(it) }
+    .also(block)
+    .build()
+}
+
+fun svg(tag: String, block: ComponentBuilder.() -> Unit = {}): Element {
+  return ComponentBuilder(tag) { document.createElementNS("http://www.w3.org/2000/svg", it) }
+    .also(block)
+    .build()
 }

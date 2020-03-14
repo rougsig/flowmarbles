@@ -33,21 +33,21 @@ private fun <T : Any> marble(value: T, time: Long, color: String? = null): Marbl
   return Marble.Model(color ?: colors.random(), time, value)
 }
 
-private fun <T : Any> input(vararg marbles: Marble.Model<T>): Timeline.Model<T> {
-  return Timeline.Model(marbles.toList())
+private fun <T : Any> input(vararg marbles: Marble.Model<T>): List<Marble.Model<T>> {
+  return marbles.toList()
 }
 
-private fun <T : Any> inputs(vararg inputs: Timeline.Model<T>): SandBoxInput.Model<T> {
-  return SandBoxInput.Model(timelines = inputs.toList())
+private fun <T : Any> inputs(vararg inputs: List<Marble.Model<T>>): List<List<Marble.Model<T>>> {
+  return inputs.toList()
 }
 
 private fun <T : Any> sandbox(
-  input: SandBoxInput.Model<T>,
+  input: List<List<Marble.Model<T>>>,
   label: String,
   transformer: SandBoxTransformer<T>
 ): SandBox.Model<Any> {
   return SandBox.Model<Any>(
-    input as SandBoxInput.Model<Any>,
+    input as List<List<Marble.Model<Any>>>,
     label,
     transformer as SandBoxTransformer<Any>
   )
@@ -224,7 +224,8 @@ val operators = listOf(
         input(
           marble("A", 0),
           marble("B", 25),
-          marble("C", 50)
+          marble("C", 50),
+          marble("D", 75)
         ),
         input(
           marble("1", 0),

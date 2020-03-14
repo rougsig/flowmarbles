@@ -5,7 +5,7 @@ import com.github.rougsig.flowmarbles.component.menu.Menu.Model.Item
 import com.github.rougsig.flowmarbles.component.row
 import com.github.rougsig.flowmarbles.component.sandbox.SandBox
 import com.github.rougsig.flowmarbles.core.html
-import kotlinx.coroutines.InternalCoroutinesApi
+import com.github.rougsig.flowmarbles.operators.operators
 import kotlin.browser.document
 
 fun main() {
@@ -21,14 +21,14 @@ fun main() {
     }
   }
   val menu = Menu()
+  val sandBox = SandBox<Any>()
+  sandBox.setModel(operators[8].second)
   val row = row {
-    col(SandBox<Any>()) {
-      attr("style", "flex: 1;")
-    }
+    col(sandBox) { attr("style", "flex: 1;") }
     col(menu)
   }
 
-  menu.model = Menu.Model(
+  menu.setModel(Menu.Model(
     listOf(
       Item.Header("creation"),
       Item.Label("from"),
@@ -47,10 +47,8 @@ fun main() {
       Item.Label("timer")
     ),
     selectedItem = null
-  )
-  menu.itemClickListener = { item ->
-    menu.model = menu.model?.copy(selectedItem = item)
-  }
+  ))
+  menu.itemSelectedListener = { index, item -> println("$index, $item") }
 
   app.appendChild(header)
   app.appendChild(row)

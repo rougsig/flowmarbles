@@ -4,8 +4,9 @@ import com.github.rougsig.flowmarbles.core.Component
 import com.github.rougsig.flowmarbles.core.ComponentBuilder
 import com.github.rougsig.flowmarbles.core.html
 import org.w3c.dom.Element
+import kotlin.browser.document
 
-class RowBuilder : ComponentBuilder("div") {
+class RowBuilder : ComponentBuilder("div", { document.createElement(it) }) {
   fun col(component: Component, block: ComponentBuilder.() -> Unit = {}) {
     element(html("div") {
       this.block()

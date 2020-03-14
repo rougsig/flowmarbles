@@ -1,60 +1,31 @@
 package com.github.rougsig.flowmarbles.component.sandbox
 
+import com.github.rougsig.flowmarbles.component.timeline.Marble
 import com.github.rougsig.flowmarbles.component.timeline.Timeline
 import com.github.rougsig.flowmarbles.core.Component
-import com.github.rougsig.flowmarbles.core.appendComponent
-import com.github.rougsig.flowmarbles.core.createElement
-import org.w3c.dom.Element
+import com.github.rougsig.flowmarbles.core.ListComponent
+import com.github.rougsig.flowmarbles.core.html
 
 class SandBoxInput<T : Any> : Component {
-  data class Model<T : Any>(
-    val timelines: List<Timeline.Model<T>>
-  )
+  private val list = ListComponent<List<List<Marble.Model<T>>>>(html("div"))
+  override val rootNode = list.rootNode
+  var timelinesChangeListener: ((List<List<Marble.Model<T>>>) -> Unit)? = null
 
-  private var timelinesChangeListener: ((Model<T>) -> Unit)? = null
-  private var model: Model<T> =
-    Model(timelines = emptyList())
-    set(value) {
-      inflateTimelines(field, value)
-      field = value
-      invalidateTimelines()
-      timelinesChangeListener?.invoke(field)
-    }
-  private var timelines: List<Timeline<T>> = emptyList()
-  override val rootNode: Element = createElement("div")
-
-  fun setModel(model: Model<T>) {
-    if (model == this.model) return
-    this.model = model
+  fun setModel(model: List<List<Marble.Model<T>>>) {
+    list.data = model
   }
 
-  fun setTimelinesChangeListener(listener: ((Model<T>) -> Unit)?) {
-    this.timelinesChangeListener = listener
-  }
-
-  private fun inflateTimelines(currentModel: Model<T>, newModel: Model<T>) {
-    if (currentModel.timelines.size == newModel.timelines.size) return
-
-    rootNode.innerHTML = ""
-
-    timelines = newModel.timelines.mapIndexed { index, timeline ->
-      val item = Timeline<T>()
-      item.setModel(timeline)
-      item.setTimelineChangeListener { model ->
-        this.model =
-          Model(this.model.timelines.toMutableList().apply {
-            removeAt(index)
-            add(index, model)
-          })
+  init {
+    list.adapter = { timelines ->
+      timelines.mapIndexed { index, timeline ->
+        Timeline(timeline).apply {
+          timelineChangeListener = { model ->
+            timelinesChangeListener?.invoke(list.data?.toMutableList()?.apply {
+              set(index, model)
+            } ?: emptyList())
+          }
+        }.rootNode
       }
-      rootNode.appendComponent(item)
-      item
-    }
-  }
-
-  private fun invalidateTimelines() {
-    timelines.forEachIndexed { index, timeline ->
-      timeline.setModel(model.timelines[index])
     }
   }
 }

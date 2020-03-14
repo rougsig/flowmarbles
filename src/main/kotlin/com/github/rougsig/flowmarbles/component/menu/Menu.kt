@@ -20,26 +20,25 @@ class Menu : Component {
   }
 
   private val search = MenuSearch()
-  private val list = ListComponent<Model>() {
+  private val list = ListComponent<Model>(html("div") {
     attr("class", "menu_list")
-  }
+  })
+
   override val rootNode = html("div") {
     attr("class", "menu")
     component(search)
     component(list)
   }
 
-  var model: Model? = null
-    set(value) {
-      list.data = value
-      field = value
-    }
+  var itemSelectedListener: ((Int, Item) -> Unit)? = null
 
-  var itemClickListener: ((Item) -> Unit)? = null
+  fun setModel(model: Model) {
+    list.data = model
+  }
 
   init {
     list.adapter = { model ->
-      model.items.map { item ->
+      model.items.mapIndexed { index, item ->
         when (item) {
           is Item.Header -> html("p") {
             attr("class", "menu_header")
@@ -55,7 +54,10 @@ class Menu : Component {
               if (item === model.selectedItem) append("menu_item--selected ")
             })
             text = item.label
-            clickListener = { itemClickListener?.invoke(item) }
+            clickListener = {
+              list.data = list.data?.copy(selectedItem = item)
+              itemSelectedListener?.invoke(index, item)
+            }
           }
         }
       }
@@ -63,8 +65,8 @@ class Menu : Component {
 
     val nothingFound = listOf(Item.NothingFound("operators not found"))
     search.onTextChangeListener = { query ->
-      val filteredItems = model?.items?.filter { it.label.contains(query) && it !is Item.Header || query.isBlank() }
-      list.data = model?.copy(items = if (filteredItems.isNullOrEmpty()) nothingFound else filteredItems)
+      val filteredItems = list.data?.items?.filter { it.label.contains(query) && it !is Item.Header || query.isBlank() }
+      list.data = list.data?.copy(items = if (filteredItems.isNullOrEmpty()) nothingFound else filteredItems)
     }
   }
 }

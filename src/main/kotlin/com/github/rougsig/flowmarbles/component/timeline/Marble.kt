@@ -1,33 +1,32 @@
 package com.github.rougsig.flowmarbles.component.timeline
 
 import com.github.rougsig.flowmarbles.core.Component
-import com.github.rougsig.flowmarbles.core.createSvgElement
-import org.w3c.dom.Element
+import com.github.rougsig.flowmarbles.core.svg
 
-class Marble<T : Any> : Component {
+class Marble<T : Any>(model: Model<T>) : Component {
   data class Model<T : Any>(
     val color: String,
     val time: Long,
     val value: T
   )
 
-  override val rootNode: Element = createSvgElement("g")
+  private val circle = svg("circle") {
+    attr("fill", model.color)
+    attr("r", "2.5")
+    attr("stroke", "black")
+    attr("stroke-width", "0.5")
+  }
 
-  private val circle = createSvgElement("circle") {
-    setAttribute("r", "2.5")
-    setAttribute("stroke", "black")
-    setAttribute("stroke-width", "0.5")
-  }.also { rootNode.appendChild(it) }
+  private val value = svg("text") {
+    attr("style", "user-select: none; font-size: 2.5px; font-family: 'Roboto Mono', monospace;")
+    attr("text-anchor", "middle")
+    attr("y", "1")
+    text = model.value.toString()
+  }
 
-  private val text = createSvgElement("text") {
-    setAttribute("style", "user-select: none; font-size: 2.5px; font-family: 'Roboto Mono', monospace;")
-    setAttribute("text-anchor", "middle")
-    setAttribute("y", "1")
-  }.also { rootNode.appendChild(it) }
-
-  fun setModel(model: Model<T>) {
-    rootNode.setAttribute("transform", "translate(${model.time}, 5)")
-    circle.setAttribute("fill", model.color)
-    text.innerHTML = model.value.toString()
+  override val rootNode = svg("g") {
+    attr("transform", "translate(${model.time}, 5)")
+    element(circle)
+    element(value)
   }
 }

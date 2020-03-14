@@ -6,9 +6,9 @@ import org.w3c.dom.events.Event
 import org.w3c.dom.events.MouseEvent
 import kotlin.browser.document
 
-class TimelineItem<T : Any> : Component {
-  private var dragListener: ((Long) -> Unit)? = null
-  private val marble = Marble<T>()
+class TimelineItem<T : Any>(model: Marble.Model<T>) : Component {
+  var dragListener: ((Long) -> Unit)? = null
+  private val marble = Marble(model)
   override val rootNode = marble.rootNode
 
   init {
@@ -40,13 +40,5 @@ class TimelineItem<T : Any> : Component {
         document.removeEventListener("mousemove", moveListener)
       })
     })
-  }
-
-  fun setDragListener(listener: ((Long) -> Unit)) {
-    this.dragListener = listener
-  }
-
-  fun setModel(model: Marble.Model<T>) {
-    marble.setModel(model)
   }
 }
