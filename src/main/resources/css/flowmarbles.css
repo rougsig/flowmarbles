@@ -9,12 +9,11 @@ body, input {
 
 .header {
   font-size: 16px;
-  margin: 56px 0 16px;
+  margin: 24px 0 48px;
 }
 
 .header_title span {
   font-weight: bold;
-  font-size: 24px;
 }
 
 .row {

@@ -23,7 +23,6 @@ class SandBox<T : Any> : Component {
     val transformer: SandBoxTransformer<T>
   )
 
-
   private val input = SandBoxInput<T>()
   private val label = SandBoxLabel()
   private val output = SandBoxOutput<T>()

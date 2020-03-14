@@ -32,14 +32,11 @@ class Menu : Component {
 
   var itemSelectedListener: ((Int, Item) -> Unit)? = null
 
-  private var currentModel: Model? = null
+  var model: Model? = null
     set(value) {
       field = value
       list.data = value
     }
-  fun setModel(model: Model) {
-    currentModel = model
-  }
 
   init {
     list.adapter = { model ->
@@ -55,14 +52,11 @@ class Menu : Component {
           }
           is Item.Label -> html("p") {
             attr("class", buildString {
-              append("menu_item ")
-              if (item === model.selectedItem) append("menu_item--selected ")
+              append("menu_item")
+              if (item === model.selectedItem) append(" menu_item--selected")
             })
             text = item.label
-            clickListener = {
-              list.data = list.data?.copy(selectedItem = item)
-              itemSelectedListener?.invoke(index, item)
-            }
+            clickListener = { itemSelectedListener?.invoke(index, item) }
           }
         }
       }
@@ -70,7 +64,7 @@ class Menu : Component {
 
     val nothingFound = listOf(Item.NothingFound("operators not found"))
     search.onTextChangeListener = { query ->
-      val filteredItems = currentModel?.items?.filter { it.label.contains(query) && it !is Item.Header || query.isBlank() }
+      val filteredItems = model?.items?.filter { it.label.contains(query) && it !is Item.Header || query.isBlank() }
       list.data = list.data?.copy(items = if (filteredItems.isNullOrEmpty()) nothingFound else filteredItems)
     }
   }
