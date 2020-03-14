@@ -9,11 +9,15 @@ import kotlin.browser.document
 
 class TimelineItem<T : Any>(model: Marble.Model<T>) : Component {
   var dragListener: ((Long) -> Unit)? = null
+    set(value) {
+      if (value != null) rootNode.setAttribute("style", "cursor: ew-resize;")
+      else rootNode.setAttribute("style", "cursor: default;")
+      field = value
+    }
   private val marble = Marble(model)
   override val rootNode = marble.rootNode
 
   init {
-    rootNode.setAttribute("style", "cursor: ew-resize;")
 
     rootNode.addEventListener("mousedown", { down ->
       val rect = down.asDynamic().currentTarget.parentElement.getBoundingClientRect() as DOMRect
