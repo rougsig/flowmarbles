@@ -7,6 +7,7 @@ import kotlinx.coroutines.FlowPreview
 @ExperimentalCoroutinesApi
 val operators = listOf(
   contextOperators(),
+  delayOperators(),
   distinctOperators(),
   emittersOperators(),
   limitOperators(),

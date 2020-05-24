@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.sample
 
 @FlowPreview
 @ExperimentalCoroutinesApi
-fun contextOperators() = listOf(
+fun delayOperators() = listOf(
   menuItem(header("delay"), null),
   menuItem(
     label("debounce"),
