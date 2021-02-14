@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.*
 
 @ExperimentalCoroutinesApi
 fun transformOperators() = listOf(
-  menuItem(header("transform"), null),
+  menuHeader("transform"),
   menuItem(
     label("filter"),
     sandbox(

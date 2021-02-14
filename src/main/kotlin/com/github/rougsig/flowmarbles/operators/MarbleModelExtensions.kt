@@ -53,6 +53,13 @@ fun menuItem(
   return label to sandBox
 }
 
+@ExperimentalCoroutinesApi
+fun menuHeader(
+  text: String
+): Pair<Menu.Model.Item, SandBox.Model<Any>?> {
+  return header(text) to null
+}
+
 fun label(label: String, hasBug: Boolean = false): Menu.Model.Item {
   return if (hasBug) Menu.Model.Item.Bug(label)
   else Menu.Model.Item.Label(label)
