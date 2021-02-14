@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.zip
 
 @ExperimentalCoroutinesApi
 fun zipOperators() = listOf(
-  menuItem(header("zip"), null),
+  menuHeader("zip"),
   menuItem(
     label("combine"),
     sandbox(

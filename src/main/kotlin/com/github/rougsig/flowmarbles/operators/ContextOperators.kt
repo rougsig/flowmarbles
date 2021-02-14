@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.onEach
 @FlowPreview
 @ExperimentalCoroutinesApi
 fun contextOperators() = listOf(
-  menuItem(header("context"), null),
+  menuHeader("context"),
   menuItem(
     label("conflate"),
     sandbox(

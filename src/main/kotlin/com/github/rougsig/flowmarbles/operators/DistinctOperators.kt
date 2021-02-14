@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 @FlowPreview
 @ExperimentalCoroutinesApi
 fun distinctOperators() = listOf(
-  menuItem(header("distinct"), null),
+  menuHeader("distinct"),
   menuItem(
     label("distinctUntilChanged"),
     sandbox(

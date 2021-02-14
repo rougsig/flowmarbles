@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.transform
 
 @ExperimentalCoroutinesApi
 fun emittersOperators() = listOf(
-  menuItem(header("emitters"), null),
+  menuHeader("emitters"),
   menuItem(
     label("transform"),
     sandbox(

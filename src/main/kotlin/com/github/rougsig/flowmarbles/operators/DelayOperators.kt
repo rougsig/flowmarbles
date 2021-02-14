@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.sample
 @FlowPreview
 @ExperimentalCoroutinesApi
 fun delayOperators() = listOf(
-  menuItem(header("delay"), null),
+  menuHeader("delay"),
   menuItem(
     label("debounce"),
     sandbox(

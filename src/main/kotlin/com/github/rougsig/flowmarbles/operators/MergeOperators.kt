@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.*
 @FlowPreview
 @ExperimentalCoroutinesApi
 fun mergeOperators() = listOf(
-  menuItem(header("merge"), null),
+  menuHeader("merge"),
   menuItem(
     label("flatMapConcat"),
     sandbox(

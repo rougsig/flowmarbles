@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.takeWhile
 
 @ExperimentalCoroutinesApi
 fun limitOperators() = listOf(
-  menuItem(header("limit"), null),
+  menuHeader("limit"),
   menuItem(
     label("drop"),
     sandbox(
