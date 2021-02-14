@@ -8,8 +8,11 @@ import kotlin.dom.appendText
 open class ComponentBuilder(tag: String, private val createElement: (String) -> Element) {
   private val element = createElement(tag)
   private var attrs: Map<String, String> = emptyMap()
-  var text: String? = null
   var clickListener: ((Event) -> Unit)? = null
+
+  fun text(text: String) {
+    element.appendText(text)
+  }
 
   fun attr(attr: String, value: String) {
     attrs += attr to value.trim()
@@ -29,7 +32,6 @@ open class ComponentBuilder(tag: String, private val createElement: (String) -> 
 
   fun build(): Element {
     attrs.forEach { (n, v) -> element.setAttribute(n, v) }
-    element.appendText(text ?: "")
     clickListener?.let { element.addEventListener("click", it) }
     return element
   }

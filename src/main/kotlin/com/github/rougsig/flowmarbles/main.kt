@@ -1,10 +1,12 @@
 package com.github.rougsig.flowmarbles
 
+import com.github.rougsig.flowmarbles.component.docs.Docs
 import com.github.rougsig.flowmarbles.component.menu.Menu
 import com.github.rougsig.flowmarbles.component.menu.Menu.Model.Item
 import com.github.rougsig.flowmarbles.component.row
 import com.github.rougsig.flowmarbles.component.sandbox.SandBox
 import com.github.rougsig.flowmarbles.core.html
+import com.github.rougsig.flowmarbles.extensions.toLowerKebabCase
 import com.github.rougsig.flowmarbles.operators.operators
 import org.w3c.dom.HashChangeEvent
 import kotlin.browser.document
@@ -17,9 +19,9 @@ fun main() {
     tag("p") {
       attr("class", "header_title")
       tag("span") {
-        text = "Flow Marbles:"
+        text("Flow Marbles:")
       }
-      text = " Interactive diagram of Kotlin Flow"
+      text(" Interactive diagram of Kotlin Flow")
     }
   }
   val items = operators.map { it.first }
@@ -30,16 +32,23 @@ fun main() {
 
   val menu = Menu(items, findItemByHash(window.location.hash.drop(1)))
   val sandBox = SandBox<Any>()
+  val docs = Docs()
 
   fun updateSandBox() {
     menu.selectedItem?.let { selectedItem ->
-      val selectedSandBox = operators.find { it.first == selectedItem }?.second
-      if (selectedSandBox != null) sandBox.setModel(selectedSandBox)
+      val selectedOperator = operators.find { it.first == selectedItem }
+      val selectedSandBox = selectedOperator?.second
+      if (selectedSandBox != null) {
+        sandBox.setModel(selectedSandBox)
+        docs.setModel(selectedOperator.first.label.toLowerKebabCase())
+      }
     }
   }
 
   val row = row {
-    col(sandBox) { attr("style", "flex: 1;") }
+    col(listOf(sandBox, docs)) {
+      attr("id", "content")
+    }
     col(menu)
   }
 
@@ -55,4 +64,10 @@ fun main() {
 
   app.appendChild(header)
   app.appendChild(row)
+
+
+  val content = document.getElementById("content")!!
+  window.onscroll = {
+    content.setAttribute("style", "transform: translateY(${window.pageYOffset}px)")
+  }
 }

@@ -37,7 +37,7 @@ class Marble<T : Any>(model: Model<T>, posY: Long = 1) : Component {
     attr("style", "user-select: none; font-size: 25px; font-family: 'Roboto Mono', monospace;")
     attr("text-anchor", "middle")
     attr("y", "8")
-    text = model.value.toString()
+    text(model.value.toString())
   }
 
   override val rootNode = svg("g") {

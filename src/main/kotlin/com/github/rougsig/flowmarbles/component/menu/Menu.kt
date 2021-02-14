@@ -48,18 +48,18 @@ class Menu(
         when (item) {
           is Item.Header -> html("p") {
             attr("class", "menu_header")
-            text = item.label
+            text(item.label)
           }
           is Item.NothingFound -> html("p") {
             attr("class", "menu_header menu_header--text-center")
-            text = item.label
+            text(item.label)
           }
           is Item.Label -> html("p") {
             attr("class", buildString {
               append("menu_item")
               if (item === model.selectedItem) append(" menu_item--selected")
             })
-            text = item.label
+            text(item.label)
             clickListener = { itemSelectedListener?.invoke(index, item) }
           }
           is Item.Bug -> html("p") {
@@ -67,7 +67,7 @@ class Menu(
               append("menu_item menu_item--bugged")
               if (item === model.selectedItem) append(" menu_item--selected")
             })
-            text = item.label
+            text(item.label)
             clickListener = { itemSelectedListener?.invoke(index, item) }
           }
         }

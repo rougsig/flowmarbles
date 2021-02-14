@@ -58,10 +58,4 @@ class SandBox<T : Any> : Component {
       virtualTimeDispatcher.advanceUntilIdle()
     }, 0)
   }
-
-  init {
-    window.onscroll = {
-      rootNode.setAttribute("style", "transform: translateY(${window.pageYOffset}px)")
-    }
-  }
 }

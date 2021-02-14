@@ -22,6 +22,26 @@ class RowBuilder : ComponentBuilder("div", { document.createElement(it) }) {
       element(element)
     })
   }
+
+  fun col(components: List<Component>, block: ComponentBuilder.() -> Unit = {}) {
+    element(html("div") {
+      this.block()
+      attr("class", "row_col")
+      components.forEach { component ->
+        component(component)
+      }
+    })
+  }
+
+  fun col(elements: List<Element>, block: ComponentBuilder.() -> Unit = {}) {
+    element(html("div") {
+      this.block()
+      attr("class", "row_col")
+      elements.forEach { element ->
+        element(element)
+      }
+    })
+  }
 }
 
 fun row(block: RowBuilder.() -> Unit = {}): Element {

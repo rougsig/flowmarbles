@@ -120,3 +120,73 @@ body, input {
   width: 100%;
   user-select: none;
 }
+
+#content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+}
+
+.docs {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin: 32px 42px 0 0;
+  overflow-y: auto;
+}
+
+.docs_source {
+  margin: 16px 0 32px;
+}
+
+.docs_content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.docs .page-content .api-docs-breadcrumbs,
+.docs .page-content h1 {
+  display: none;
+}
+
+.docs .page-content h3 {
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.docs .page-content p {
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.docs .page-content .signature,
+.docs .page-content pre {
+  background-color: #efefef;
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.docs .page-content code {
+  background-color: #efefef;
+  border-radius: 4px;
+  padding: 0 4px;
+}
+
+.docs .page-content .keyword {
+  color: #0000C0;
+}
+
+.docs .page-content .summarizedTypeName {
+  background-color: lightcyan;
+  font-style: italic;
+}
+
+.docs .page-content .parameterName {
+  font-weight: bold;
+}
+
+.docs .page-content pre {
+  margin-bottom: 16px;
+}
