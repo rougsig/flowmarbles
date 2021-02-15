@@ -78,7 +78,7 @@ class Menu(
 
     val nothingFound = listOf(Item.NothingFound("operators not found"))
     search.onTextChangeListener = { query ->
-      val filteredItems = items.filter { it.label.contains(query) && it !is Item.Header || query.isBlank() }
+      val filteredItems = items.filter { it.label.toLowerCase().contains(query.toLowerCase()) && it !is Item.Header || query.isBlank() }
       list.data = list.data?.copy(items = if (filteredItems.isNullOrEmpty()) nothingFound else filteredItems)
     }
   }
