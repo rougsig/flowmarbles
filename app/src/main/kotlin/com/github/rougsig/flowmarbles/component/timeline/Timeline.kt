@@ -68,7 +68,7 @@ class Timeline<T : Any>(
             } ?: emptyList())
           }
         }.rootNode
-      }.plus(EndMarker(marbles.maxBy { it.time }?.time ?: 0).rootNode)
+      }.plus(EndMarker(marbles.maxByOrNull { it.time }?.time ?: 0).rootNode)
     }
 
     setMarbles(timeline)

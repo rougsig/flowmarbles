@@ -175,6 +175,6 @@ fun transformOperators() = listOf(
         )
       ),
       "scanReduce { acc, v -> acc + v }"
-    ) { inputs -> inputs[0].scanReduce { acc, v -> acc + v } }
+    ) { inputs -> inputs[0].runningReduce { acc, v -> acc + v } }
   )
 )
