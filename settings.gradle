@@ -1,2 +1,3 @@
 rootProject.name = 'flowmarbles'
 
+include ':app', ':docs'
