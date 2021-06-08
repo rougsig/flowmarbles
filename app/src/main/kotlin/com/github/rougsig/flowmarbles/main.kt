@@ -22,6 +22,14 @@ fun main() {
       text = " Interactive diagram of Kotlin Flow"
     }
   }
+  val kotlinVersion = html("p") {
+    attr("class", "version")
+    text = "kotlinx.coroutines version is 1.5.0"
+  }
+  val coroutinesVersion = html("p") {
+    attr("class", "version")
+    text = "kotlin version is 1.5.10"
+  }
   val items = operators.map { it.first }
 
   fun findItemByHash(hash: String): Item? {
@@ -55,4 +63,6 @@ fun main() {
 
   app.appendChild(header)
   app.appendChild(row)
+  app.appendChild(kotlinVersion)
+  app.appendChild(coroutinesVersion)
 }

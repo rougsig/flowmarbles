@@ -120,3 +120,11 @@ body, input {
   width: 100%;
   user-select: none;
 }
+
+.version {
+  margin-bottom: 4px;
+}
+
+#app {
+  padding-bottom: 32px;
+}
