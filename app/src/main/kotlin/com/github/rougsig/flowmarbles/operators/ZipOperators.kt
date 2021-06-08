@@ -11,6 +11,7 @@ fun zipOperators() = listOf(
   menuItem(
     label("combine"),
     sandbox(
+      "combine",
       inputs(
         input(
           marble("1", 0),
@@ -31,6 +32,7 @@ fun zipOperators() = listOf(
   menuItem(
     label("combineTransform"),
     sandbox(
+      "combineTransform",
       inputs(
         input(
           marble("1", 0),
@@ -51,6 +53,7 @@ fun zipOperators() = listOf(
   menuItem(
     label("zip"),
     sandbox(
+      "zip",
       inputs(
         input(
           marble("1", 0),

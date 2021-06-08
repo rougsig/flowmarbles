@@ -34,6 +34,7 @@ fun <T : Any> inputs(vararg inputs: List<Marble.Model<T>>): List<List<Marble.Mod
 
 @ExperimentalCoroutinesApi
 fun <T : Any> sandbox(
+  docs: String,
   input: List<List<Marble.Model<T>>>,
   label: String,
   transformer: SandBoxTransformer<T>
@@ -41,6 +42,7 @@ fun <T : Any> sandbox(
   return SandBox.Model(
     input.unsafeCast<List<List<Marble.Model<Any>>>>(),
     label,
+    "http://localhost:8000/${docs}",
     transformer.unsafeCast<SandBoxTransformer<Any>>()
   )
 }

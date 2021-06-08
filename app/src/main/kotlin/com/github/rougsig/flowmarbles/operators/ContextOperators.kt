@@ -13,6 +13,7 @@ fun contextOperators() = listOf(
   menuItem(
     label("conflate"),
     sandbox(
+      "conflate",
       inputs(
         input(
           marble("1", 0),

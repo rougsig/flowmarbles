@@ -12,6 +12,7 @@ fun limitOperators() = listOf(
   menuItem(
     label("drop"),
     sandbox(
+      "drop",
       inputs(
         input(
           marble(1, 0),
@@ -28,6 +29,7 @@ fun limitOperators() = listOf(
   menuItem(
     label("dropWhile"),
     sandbox(
+      "dropWhile",
       inputs(
         input(
           marble(1, 0),
@@ -44,6 +46,7 @@ fun limitOperators() = listOf(
   menuItem(
     label("take"),
     sandbox(
+      "take",
       inputs(
         input(
           marble(1, 0),
@@ -60,6 +63,7 @@ fun limitOperators() = listOf(
   menuItem(
     label("takeWhile"),
     sandbox(
+      "takeWhile",
       inputs(
         input(
           marble(1, 0),

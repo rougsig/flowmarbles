@@ -11,6 +11,7 @@ fun emittersOperators() = listOf(
   menuItem(
     label("transform"),
     sandbox(
+      "transform",
       inputs(
         input(
           marble(1, 0),
@@ -27,6 +28,7 @@ fun emittersOperators() = listOf(
   menuItem(
     label("onStart"),
     sandbox(
+      "onStart",
       inputs(
         input(
           marble("1", 50),
@@ -42,6 +44,7 @@ fun emittersOperators() = listOf(
   menuItem(
     label("onCompletion"),
     sandbox(
+      "onCompletion",
       inputs(
         input(
           marble("1", 50),

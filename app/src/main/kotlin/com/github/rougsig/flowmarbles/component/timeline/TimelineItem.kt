@@ -18,7 +18,6 @@ class TimelineItem<T : Any>(model: Marble.Model<T>, posY: Long = 1) : Component 
   override val rootNode = marble.rootNode
 
   init {
-
     rootNode.addEventListener("mousedown", { down ->
       val rect = down.asDynamic().currentTarget.parentElement.getBoundingClientRect() as DOMRect
       val width = rect.width

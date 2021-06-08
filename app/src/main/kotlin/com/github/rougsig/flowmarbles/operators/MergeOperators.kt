@@ -12,6 +12,7 @@ fun mergeOperators() = listOf(
   menuItem(
     label("flatMapConcat"),
     sandbox(
+      "flatMapConcat",
       inputs(
         input(
           marble("1", 0),
@@ -29,6 +30,7 @@ fun mergeOperators() = listOf(
   menuItem(
     label("flatMapMerge"),
     sandbox(
+      "flatMapMerge",
       inputs(
         input(
           marble("1", 0),
@@ -46,6 +48,7 @@ fun mergeOperators() = listOf(
   menuItem(
     label("flatMapLatest"),
     sandbox(
+      "flatMapLatest",
       inputs(
         input(
           marble("1", 0),
@@ -63,6 +66,7 @@ fun mergeOperators() = listOf(
   menuItem(
     label("merge"),
     sandbox(
+      "merge",
       inputs(
         input(
           marble("1", 0),
@@ -85,6 +89,7 @@ fun mergeOperators() = listOf(
   menuItem(
     label("transformLatest"),
     sandbox(
+      "transformLatest",
       inputs(
         input(
           marble("A", 0),
@@ -100,6 +105,7 @@ fun mergeOperators() = listOf(
   menuItem(
     label("mapLatest"),
     sandbox(
+      "mapLatest",
       inputs(
         input(
           marble("A", 0),

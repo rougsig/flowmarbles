@@ -10,6 +10,7 @@ fun transformOperators() = listOf(
   menuItem(
     label("filter"),
     sandbox(
+      "filter",
       inputs(
         input(
           marble(20, 0),
@@ -26,6 +27,7 @@ fun transformOperators() = listOf(
   menuItem(
     label("filterNot"),
     sandbox(
+      "filterNot",
       inputs(
         input(
           marble(10, 0),
@@ -42,6 +44,7 @@ fun transformOperators() = listOf(
   menuItem(
     label("filterIsInstance"),
     sandbox(
+      "filterIsInstance",
       inputs(
         input<Any>(
           marble(1, 0),
@@ -62,6 +65,7 @@ fun transformOperators() = listOf(
   menuItem(
     label("filterNotNull"),
     sandbox(
+      "filterNotNull",
       inputs(
         input(
           marble("", 0),
@@ -82,6 +86,7 @@ fun transformOperators() = listOf(
   menuItem(
     label("map"),
     sandbox(
+      "map",
       inputs(
         input(
           marble(1, 0),
@@ -98,6 +103,7 @@ fun transformOperators() = listOf(
   menuItem(
     label("mapNotNull"),
     sandbox(
+      "mapNotNull",
       inputs(
         input(
           marble("", 0),
@@ -118,6 +124,7 @@ fun transformOperators() = listOf(
   menuItem(
     label("withIndex"),
     sandbox(
+      "withIndex",
       inputs(
         input(
           marble("A", 0),
@@ -132,6 +139,7 @@ fun transformOperators() = listOf(
   menuItem(
     label("onEach"),
     sandbox(
+      "onEach",
       inputs(
         input(
           marble("A", 0),
@@ -146,6 +154,7 @@ fun transformOperators() = listOf(
   menuItem(
     label("scan"),
     sandbox(
+      "scan",
       inputs(
         input(
           marble(1, 0),
@@ -163,6 +172,7 @@ fun transformOperators() = listOf(
   menuItem(
     label("scanReduce"),
     sandbox(
+      "scanReduce",
       inputs(
         input(
           marble(1, 0),

@@ -11,6 +11,7 @@ fun distinctOperators() = listOf(
   menuItem(
     label("distinctUntilChanged"),
     sandbox(
+      "distinctUntilChanged",
       inputs(
         input(
           marble("1", 0, color = Colors.colors[0]),

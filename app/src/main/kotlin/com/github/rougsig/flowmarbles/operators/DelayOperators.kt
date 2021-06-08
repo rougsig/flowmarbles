@@ -12,6 +12,7 @@ fun delayOperators() = listOf(
   menuItem(
     label("debounce"),
     sandbox(
+      "debounce",
       inputs(
         input(
           marble("1", 0),
@@ -27,6 +28,7 @@ fun delayOperators() = listOf(
   menuItem(
     label("sample"),
     sandbox(
+      "sample",
       inputs(
         input(
           marble("1", 0),

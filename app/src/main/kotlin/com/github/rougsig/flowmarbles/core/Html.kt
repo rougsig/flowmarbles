@@ -28,8 +28,8 @@ open class ComponentBuilder(tag: String, private val createElement: (String) -> 
   }
 
   fun build(): Element {
-    attrs.forEach { (n, v) -> element.setAttribute(n, v) }
     element.appendText(text ?: "")
+    attrs.forEach { (n, v) -> element.setAttribute(n, v) }
     clickListener?.let { element.addEventListener("click", it) }
     return element
   }
