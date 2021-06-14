@@ -8,6 +8,7 @@ private const val KOTLIN_DOCS_URL = "https://kotlin.github.io/kotlinx.coroutines
 
 class KotlinDocs : Component {
   fun setModel(model: String) {
+    content.setAttribute("height", "0")
     content.setAttribute("src", model)
   }
 
