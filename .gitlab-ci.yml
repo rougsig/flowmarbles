@@ -10,7 +10,8 @@ build:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
     paths:
-      - build/libs
+      - app/build
+      - docs/build
       - .gradle
   artifacts:
     paths:
