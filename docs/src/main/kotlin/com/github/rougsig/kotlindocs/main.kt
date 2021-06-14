@@ -15,16 +15,16 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-const val BASE_DOCS_URL = "https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow"
+const val BASE_DOCS_URL = "https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/"
 
 fun main() {
-  embeddedServer(Netty, port = 8000/*, host = "flowmarbles.com"*/) {
+  embeddedServer(Netty, port = 8000) {
     routing {
       get("/{page}") {
         val page = call.parameters["page"]!!
         val uri = URI(BASE_DOCS_URL)
-        val doc = getDocsHtml("$BASE_DOCS_URL/${page.toCamelKebabCase()}.html")
-        println("$BASE_DOCS_URL/${call.parameters["page"]}.html")
+        val doc = getDocsHtml("$BASE_DOCS_URL${page.toCamelKebabCase()}.html")
+        println("$BASE_DOCS_URL${call.parameters["page"]}.html")
         val pageContents = doc.selectFirst("main")
         pageContents.select("a").forEach { link ->
           link.attr("target", "_blank")
