@@ -1,6 +1,5 @@
 package com.github.rougsig.flowmarbles
 
-import com.github.rougsig.flowmarbles.component.kotlindocs.KotlinDocs
 import com.github.rougsig.flowmarbles.component.menu.Menu
 import com.github.rougsig.flowmarbles.component.menu.Menu.Model.Item
 import com.github.rougsig.flowmarbles.component.row
@@ -40,8 +39,13 @@ fun main() {
   }
 
   val row = row {
-    col(sandBox) { attr("style", "flex: 1;") }
-    col(menu)
+    col(sandBox) {
+      attr("id", "sandbox")
+      attr("style", "flex: 1;")
+    }
+    col(menu) {
+      attr("id", "menu")
+    }
   }
 
   menu.itemSelectedListener = { _, item -> window.location.hash = "#${item.label}" }

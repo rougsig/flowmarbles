@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import kotlin.browser.window
-import kotlin.math.roundToInt
 
 typealias SandBoxTransformer<T> = (inputs: List<Flow<Marble.Model<T>>>) -> Flow<Marble.Model<T>>
 
@@ -73,11 +72,5 @@ class SandBox<T : Any> : Component {
       virtualTimeDispatcher.resumeDispatcher()
       virtualTimeDispatcher.advanceUntilIdle()
     }, 0)
-  }
-
-  init {
-    window.onscroll = {
-      rootNode.setAttribute("style", "transform: translateY(${window.pageYOffset.roundToInt()}px)")
-    }
   }
 }
