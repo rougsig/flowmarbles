@@ -1,0 +1,32 @@
+image: gradle
+
+variables:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+
+build:
+  stage: build
+  script: ./gradlew app:build docs:fatJar
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: push
+    paths:
+      - build/libs
+      - .gradle
+  artifacts:
+    paths:
+      - app/build/distributions
+      - docs/build/libs
+      - Dockerfile
+      - docker-compose.yml
+    expire_in: 1 week
+  tags:
+    - build
+
+deploy:
+  stage: deploy
+  script:
+    - docker-compose down || true
+    - docker-compose rm -f || true
+    - docker-compose up --build -d
+  tags:
+    - run

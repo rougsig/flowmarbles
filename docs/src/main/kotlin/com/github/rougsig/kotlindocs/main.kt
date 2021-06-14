@@ -18,7 +18,7 @@ import kotlin.coroutines.suspendCoroutine
 const val BASE_DOCS_URL = "https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow"
 
 fun main() {
-  embeddedServer(Netty, port = 8000) {
+  embeddedServer(Netty, port = 8000/*, host = "flowmarbles.com"*/) {
     routing {
       get("/{page}") {
         val page = call.parameters["page"]!!
