@@ -145,3 +145,8 @@ body, input {
     outline: none;
     box-shadow: none
 }
+
+.docs_original {
+    margin-left: 12px;
+    font-size: 10px;
+}

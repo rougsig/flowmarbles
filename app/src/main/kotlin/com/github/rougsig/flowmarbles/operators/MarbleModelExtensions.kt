@@ -42,7 +42,7 @@ fun <T : Any> sandbox(
   return SandBox.Model(
     input.unsafeCast<List<List<Marble.Model<Any>>>>(),
     label,
-    "https://flowmarbles.com/docs/${docs}",
+    docs,
     transformer.unsafeCast<SandBoxTransformer<Any>>()
   )
 }

@@ -4,7 +4,226 @@
   <meta name="viewport"
         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <style>@import url(//fonts.googleapis.com/css?family=Roboto+Mono:300,300italic,400italic,700italic,400,700);@import url(//fonts.googleapis.com/css?family=Roboto+Mono:300,300italic,400italic,700italic,400,700);body,dd,hr{margin:0;padding:0}blockquote,dl,figure,h1,h2,h3,h4,h5,h6,ol,p,pre,ul{padding:0;margin:0 0 15px}body{font:400 14px/20px "Roboto Mono",Helvetica,Arial,sans-serif;color:#111;-webkit-text-size-adjust:100%;-webkit-font-feature-settings:"kern" 1;-moz-font-feature-settings:"kern" 1;-o-font-feature-settings:"kern" 1;font-feature-settings:"kern" 1;font-kerning:normal;-webkit-font-smoothing:antialiased;font-smoothing:antialiased;text-rendering:optimizeLegibility}ol,ul{margin-left:30px}li>ol,li>ul{margin-bottom:0}a{color:#2a7ae2;text-decoration:underline}a:visited{color:#1756a9}a:hover{color:#111;text-decoration:underline}blockquote{color:#828282;border-left:4px solid #e8e8e8;padding-left:15px;font-size:18px;letter-spacing:-1px;font-style:italic}blockquote>:last-child,table p:last-child,table pre:last-child{margin-bottom:0}h1{margin-top:30px;margin-bottom:15px;font-size:30px;line-height:33px}h1:first-of-type{margin-top:0;margin-bottom:30px}h2{margin-top:30px;margin-bottom:15px;font-size:24px;line-height:27px}h2:first-of-type{margin-top:0}h3,h4,h5{margin-top:30px;margin-bottom:15px;font-size:19px;line-height:22px}h4,h5{font-size:16px;line-height:20px;font-weight:700}h5{font-weight:400}caption{margin:0}table{margin-bottom:30px;line-height:inherit;font-size:inherit;border:1px solid #dcdcdc;border-collapse:collapse;border-spacing:0}table.zebra tbody tr:nth-child(odd){background-color:#f5f5f5}table.wide{min-width:100%}table thead{background-color:#f7f7f7;border-bottom-width:2px}table tfoot{color:#ccc}table tfoot tr{border-bottom:none}table tr{border-bottom:1px solid #dcdcdc}table th{text-align:left;font-weight:700}table td,table th{padding:6px 10px;vertical-align:top}table td:first-child,table th:first-child{padding-left:12px}table td:last-child,table th:last-child{padding-right:12px}code,pre{background-color:#efefef}pre{overflow:auto}code{font-family:"Roboto Mono",Consolas,Menlo,Courier,monospace;font-style:normal}code :target{background-color:#ffc}.signature{background-color:#efefef;padding:4px}.keyword{color:#0000c0}.summarizedTypeName{background-color:#e0ffff;font-style:italic}.parameterName{font-weight:700}.tags{display:flex}.tags__tag{color:#fff;font-weight:700;text-transform:uppercase;background:#a7a7a7;padding:0 7px;font-size:10px;border-radius:9px;line-height:18px;margin-right:5px}</style>
+  <style>
+      @import url(//fonts.googleapis.com/css?family=Roboto+Mono:300,300italic,400italic,700italic,400,700);
+
+      body, dd, hr {
+          margin: 0;
+          padding: 0
+      }
+
+      blockquote, dl, figure, ol, p, pre, ul {
+          padding: 0;
+          margin: 0 0 8px
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+          padding: 0;
+          margin: 0 0 16px
+      }
+
+      body {
+          font: 400 14px/20px "Roboto Mono", Helvetica, Arial, sans-serif;
+          color: #111;
+          -webkit-text-size-adjust: 100%;
+          -webkit-font-feature-settings: "kern" 1;
+          -moz-font-feature-settings: "kern" 1;
+          -o-font-feature-settings: "kern" 1;
+          font-feature-settings: "kern" 1;
+          font-kerning: normal;
+          -webkit-font-smoothing: antialiased;
+          font-smoothing: antialiased;
+          text-rendering: optimizeLegibility
+      }
+
+      ol, ul {
+          margin-left: 30px
+      }
+
+      li > ol, li > ul {
+          margin-bottom: 0
+      }
+
+      a {
+          color: #2a7ae2;
+          text-decoration: underline
+      }
+
+      a:visited {
+          color: #1756a9
+      }
+
+      a:hover {
+          color: #111;
+          text-decoration: underline
+      }
+
+      blockquote {
+          color: #828282;
+          border-left: 4px solid #e8e8e8;
+          padding-left: 15px;
+          font-size: 18px;
+          letter-spacing: -1px;
+          font-style: italic
+      }
+
+      blockquote > :last-child, table p:last-child, table pre:last-child {
+          margin-bottom: 0
+      }
+
+      h1 {
+          margin-top: 30px;
+          margin-bottom: 15px;
+          font-size: 30px;
+          line-height: 33px
+      }
+
+      h1:first-of-type {
+          margin-top: 0;
+          margin-bottom: 30px
+      }
+
+      h2 {
+          margin-top: 30px;
+          margin-bottom: 15px;
+          font-size: 24px;
+          line-height: 27px
+      }
+
+      h3, h4, h5 {
+          margin-top: 30px;
+          margin-bottom: 15px;
+          font-size: 19px;
+          line-height: 22px
+      }
+
+      h4, h5 {
+          font-size: 16px;
+          line-height: 20px;
+          font-weight: 700
+      }
+
+      h5 {
+          font-weight: 400
+      }
+
+      caption {
+          margin: 0
+      }
+
+      table {
+          margin-bottom: 30px;
+          line-height: inherit;
+          font-size: inherit;
+          border: 1px solid #dcdcdc;
+          border-collapse: collapse;
+          border-spacing: 0
+      }
+
+      table.zebra tbody tr:nth-child(odd) {
+          background-color: #f5f5f5
+      }
+
+      table.wide {
+          min-width: 100%
+      }
+
+      table thead {
+          background-color: #f7f7f7;
+          border-bottom-width: 2px
+      }
+
+      table tfoot {
+          color: #ccc
+      }
+
+      table tfoot tr {
+          border-bottom: none
+      }
+
+      table tr {
+          border-bottom: 1px solid #dcdcdc
+      }
+
+      table th {
+          text-align: left;
+          font-weight: 700
+      }
+
+      table td, table th {
+          padding: 6px 10px;
+          vertical-align: top
+      }
+
+      table td:first-child, table th:first-child {
+          padding-left: 12px
+      }
+
+      table td:last-child, table th:last-child {
+          padding-right: 12px
+      }
+
+      code, pre {
+          background-color: #efefef
+      }
+
+      pre {
+          overflow: auto
+      }
+
+      code {
+          font-family: "Roboto Mono", Consolas, Menlo, Courier, monospace;
+          font-style: normal
+      }
+
+      code :target {
+          background-color: #ffc
+      }
+
+      .symbol {
+          background-color: #F4F4F4;
+          display: block;
+          padding: 8px 32px 8px 8px;
+          box-sizing: border-box;
+          font-weight: bold;
+          font-size: 14px;
+      }
+
+      .strikethrough {
+          text-decoration: line-through;
+      }
+
+      .table {
+          display: flex;
+          flex-direction: column;
+      }
+
+      .table-row {
+          display: flex;
+          flex-direction: column;
+          background: white;
+          border-bottom: 2px solid #f4f4f4;
+          padding: 16px 24px 16px 24px;
+      }
+
+      .divergent-group .table-row {
+          background-color: #F4F4F4;
+          border-bottom: 2px solid white;
+      }
+
+      .keyValue {
+          display: grid;
+          grid-template-columns: 20% 80%;
+      }
+
+      .divergent-group {
+          margin-top: 32px;
+      }
+
+      .divergent-group:first-child {
+          margin-top: 0;
+      }
+  </style>
 </head>
 <body>
 </body>

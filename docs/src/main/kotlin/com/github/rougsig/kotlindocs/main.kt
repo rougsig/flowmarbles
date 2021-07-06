@@ -21,22 +21,27 @@ fun main() {
   embeddedServer(Netty, port = 8000) {
     routing {
       get("/{page}") {
-        val page = call.parameters["page"]!!
-        val uri = URI(BASE_DOCS_URL)
-        val doc = getDocsHtml("$BASE_DOCS_URL${page.toCamelKebabCase()}.html")
-        println("$BASE_DOCS_URL${call.parameters["page"]}.html")
-        val pageContents = doc.selectFirst("main")
-        pageContents.select("a").forEach { link ->
-          link.attr("target", "_blank")
-          val href = link.attr("href")
-          val absoluteHref = uri.resolve(href.takeWhile { it != '#' }).toString()
-          link.attr("href", absoluteHref + href.dropWhile { it != '#' })
+        try {
+          val page = call.parameters["page"]!!
+          val uri = URI(BASE_DOCS_URL)
+          val doc = getDocsHtml("$BASE_DOCS_URL${page.toCamelKebabCase()}.html")
+          println("$BASE_DOCS_URL${call.parameters["page"]}.html")
+          val pageContents = doc.select("#content .divergent-group")
+          pageContents.select("a").forEach { link ->
+            link.attr("target", "_blank")
+            val href = link.attr("href")
+            val absoluteHref = uri.resolve(href.takeWhile { it != '#' }).toString()
+            link.attr("href", absoluteHref + href.dropWhile { it != '#' })
+          }
+          val template = Jsoup.parse(Resource.read("/template.html"))
+          val root = template.selectFirst("body")
+          pageContents.forEach { root.appendChild(it) }
+          root.select(".top-right-position").remove()
+          call.respondText(template.html(), ContentType.Text.Html)
+        } catch (e: Exception) {
+          val error = Jsoup.parse(Resource.read("/error.html"))
+          call.respondText(error.html(), ContentType.Text.Html)
         }
-        val template = Jsoup.parse(Resource.read("/template.html"))
-        val root = template.selectFirst("body")
-        root.appendChild(pageContents)
-        root.select("#${page.toLowerCase()}, .api-docs-breadcrumbs").remove()
-        call.respondText(template.html(), ContentType.Text.Html)
       }
     }
   }.start(wait = true)
