@@ -1,0 +1,229 @@
+
+> Task :app:dependencies
+
+------------------------------------------------------------
+Project :app
+------------------------------------------------------------
+
+api - API dependencies for compilation 'main' (target js (js)). (n)
+No dependencies
+
+apiDependenciesMetadata
+No dependencies
+
+archives - Configuration for archive artifacts. (n)
+No dependencies
+
+compileClasspath - Compile classpath for compilation 'main' (target js (js)).
++--- io.arrow-kt:arrow-fx-coroutines:1.0.0-SNAPSHOT FAILED
++--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.21
+|    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.21
+\--- org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.0
+     +--- org.jetbrains.kotlinx:atomicfu-js:0.16.1
+     +--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.0 -> 1.5.21 (*)
+     \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.0 -> 1.5.21
+
+compileOnly - Compile only dependencies for compilation 'main' (target js (js)).
+No dependencies
+
+compileOnlyDependenciesMetadata
+No dependencies
+
+default - Configuration for default artifacts. (n)
+No dependencies
+
+implementation - Implementation only dependencies for compilation 'main' (target js (js)). (n)
++--- io.arrow-kt:arrow-fx-coroutines:1.0.0-SNAPSHOT (n)
++--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.21 (n)
+\--- org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.0 (n)
+
+implementationDependenciesMetadata
++--- io.arrow-kt:arrow-fx-coroutines:1.0.0-SNAPSHOT
+|    +--- io.arrow-kt:arrow-core:1.0.0-SNAPSHOT
+|    |    +--- io.arrow-kt:arrow-continuations:1.0.0-SNAPSHOT
+|    |    \--- io.arrow-kt:arrow-annotations:1.0.0-SNAPSHOT
+|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2
+|         \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.30
++--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.21
+|    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.21 -> 1.5.30
+\--- org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.0 FAILED
+
+intransitiveDependenciesMetadata
+No dependencies
+
+jsApiElements - API elements for main. (n)
+No dependencies
+
+jsApiElements-published (n)
+No dependencies
+
+jsCommonFakeApiElements - Common Fake API elements for main. (n)
+No dependencies
+
+jsCommonFakeApiElements-published (n)
+No dependencies
+
+jsDefault
++--- io.arrow-kt:arrow-fx-coroutines:1.0.0-SNAPSHOT FAILED
++--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.21
+|    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.21
+\--- org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.0
+     +--- org.jetbrains.kotlinx:atomicfu-js:0.16.1
+     |    +--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.0 -> 1.5.21 (*)
+     |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.0 -> 1.5.21
+     +--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.0 -> 1.5.21 (*)
+     \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.0 -> 1.5.21
+
+jsRuntimeElements - Elements of runtime for main. (n)
+No dependencies
+
+jsRuntimeElements-published (n)
+No dependencies
+
+kotlinCompilerClasspath
+\--- org.jetbrains.kotlin:kotlin-compiler-embeddable:1.5.21
+     +--- org.jetbrains.kotlin:kotlin-stdlib:1.5.21
+     |    +--- org.jetbrains:annotations:13.0
+     |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.21
+     +--- org.jetbrains.kotlin:kotlin-script-runtime:1.5.21
+     +--- org.jetbrains.kotlin:kotlin-reflect:1.5.21
+     |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.5.21 (*)
+     +--- org.jetbrains.kotlin:kotlin-daemon-embeddable:1.5.21
+     \--- org.jetbrains.intellij.deps:trove4j:1.0.20181211
+
+kotlinCompilerPluginClasspath
+No dependencies
+
+kotlinCompilerPluginClasspathMain - Kotlin compiler plugins for compilation 'main' (target js (js))
+No dependencies
+
+kotlinCompilerPluginClasspathTest - Kotlin compiler plugins for compilation 'test' (target js (js))
+No dependencies
+
+kotlinKlibCommonizerClasspath
+\--- org.jetbrains.kotlin:kotlin-klib-commonizer-embeddable:1.5.21
+     +--- org.jetbrains.kotlin:kotlin-stdlib:1.5.21
+     |    +--- org.jetbrains:annotations:13.0
+     |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.21
+     \--- org.jetbrains.kotlin:kotlin-compiler-embeddable:1.5.21
+          +--- org.jetbrains.kotlin:kotlin-stdlib:1.5.21 (*)
+          +--- org.jetbrains.kotlin:kotlin-script-runtime:1.5.21
+          +--- org.jetbrains.kotlin:kotlin-reflect:1.5.21
+          |    \--- org.jetbrains.kotlin:kotlin-stdlib:1.5.21 (*)
+          +--- org.jetbrains.kotlin:kotlin-daemon-embeddable:1.5.21
+          \--- org.jetbrains.intellij.deps:trove4j:1.0.20181211
+
+kotlinNativeCompilerPluginClasspath
+No dependencies
+
+runtimeClasspath - Runtime classpath of compilation 'main' (target js (js)).
++--- io.arrow-kt:arrow-fx-coroutines:1.0.0-SNAPSHOT FAILED
++--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.21
+|    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.21
+\--- org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.0
+     +--- org.jetbrains.kotlinx:atomicfu-js:0.16.1
+     |    +--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.0 -> 1.5.21 (*)
+     |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.0 -> 1.5.21
+     +--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.0 -> 1.5.21 (*)
+     \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.0 -> 1.5.21
+
+runtimeOnly - Runtime only dependencies for compilation 'main' (target js (js)). (n)
+No dependencies
+
+runtimeOnlyDependenciesMetadata
+No dependencies
+
+sourceArtifacts (n)
+No dependencies
+
+testApi - API dependencies for compilation 'test' (target js (js)). (n)
+No dependencies
+
+testApiDependenciesMetadata
+No dependencies
+
+testCompileClasspath - Compile classpath for compilation 'test' (target js (js)).
++--- io.arrow-kt:arrow-fx-coroutines:1.0.0-SNAPSHOT FAILED
++--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.21
+|    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.21
+\--- org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.0
+     +--- org.jetbrains.kotlinx:atomicfu-js:0.16.1
+     +--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.0 -> 1.5.21 (*)
+     \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.0 -> 1.5.21
+
+testCompileOnly - Compile only dependencies for compilation 'test' (target js (js)).
++--- io.arrow-kt:arrow-fx-coroutines:1.0.0-SNAPSHOT FAILED
++--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.21
+|    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.21
+\--- org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.0
+     +--- org.jetbrains.kotlinx:atomicfu-js:0.16.1
+     |    +--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.0 -> 1.5.21 (*)
+     |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.0 -> 1.5.21
+     +--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.0 -> 1.5.21 (*)
+     \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.0 -> 1.5.21
+
+testCompileOnlyDependenciesMetadata
++--- io.arrow-kt:arrow-fx-coroutines:1.0.0-SNAPSHOT
+|    +--- io.arrow-kt:arrow-core:1.0.0-SNAPSHOT
+|    |    +--- io.arrow-kt:arrow-continuations:1.0.0-SNAPSHOT
+|    |    \--- io.arrow-kt:arrow-annotations:1.0.0-SNAPSHOT
+|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2
+|         \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.30
++--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.21
+|    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.21 -> 1.5.30
+\--- org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.0 FAILED
+
+testImplementation - Implementation only dependencies for compilation 'test' (target js (js)). (n)
+No dependencies
+
+testImplementationDependenciesMetadata
++--- io.arrow-kt:arrow-fx-coroutines:1.0.0-SNAPSHOT
+|    +--- io.arrow-kt:arrow-core:1.0.0-SNAPSHOT
+|    |    +--- io.arrow-kt:arrow-continuations:1.0.0-SNAPSHOT
+|    |    \--- io.arrow-kt:arrow-annotations:1.0.0-SNAPSHOT
+|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2
+|         \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.30
++--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.21
+|    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.21 -> 1.5.30
+\--- org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.0 FAILED
+
+testIntransitiveDependenciesMetadata
+No dependencies
+
+testRuntimeClasspath - Runtime classpath of compilation 'test' (target js (js)).
++--- io.arrow-kt:arrow-fx-coroutines:1.0.0-SNAPSHOT FAILED
++--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.21
+|    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.21
+\--- org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.0
+     +--- org.jetbrains.kotlinx:atomicfu-js:0.16.1
+     |    +--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.0 -> 1.5.21 (*)
+     |    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.0 -> 1.5.21
+     +--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.0 -> 1.5.21 (*)
+     \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.0 -> 1.5.21
+
+testRuntimeOnly - Runtime only dependencies for compilation 'test' (target js (js)). (n)
+\--- unspecified (n)
+
+testRuntimeOnlyDependenciesMetadata
++--- io.arrow-kt:arrow-fx-coroutines:1.0.0-SNAPSHOT
+|    +--- io.arrow-kt:arrow-core:1.0.0-SNAPSHOT
+|    |    +--- io.arrow-kt:arrow-continuations:1.0.0-SNAPSHOT
+|    |    \--- io.arrow-kt:arrow-annotations:1.0.0-SNAPSHOT
+|    \--- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2
+|         \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.30
++--- org.jetbrains.kotlin:kotlin-stdlib-js:1.5.21
+|    \--- org.jetbrains.kotlin:kotlin-stdlib-common:1.5.21 -> 1.5.30
+\--- org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.0 FAILED
+
+(*) - dependencies omitted (listed previously)
+
+(n) - Not resolved (configuration is not meant to be resolved)
+
+A web-based, searchable dependency report is available by adding the --scan option.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 7.0.
+Use '--warning-mode all' to show the individual deprecation warnings.
+See https://docs.gradle.org/6.6.1/userguide/command_line_interface.html#sec:command_line_warnings
+
+BUILD SUCCESSFUL in 12s
+1 actionable task: 1 executed

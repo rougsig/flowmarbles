@@ -1,5 +1,6 @@
 package com.github.rougsig.flowmarbles.operators
 
+import arrowKtOperators
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 
@@ -13,5 +14,6 @@ val operators = listOf(
   limitOperators(),
   mergeOperators(),
   transformOperators(),
-  zipOperators()
+  zipOperators(),
+  arrowKtOperators()
 ).flatten()
