@@ -10,7 +10,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
-import kotlin.browser.window
+import kotlinx.browser.window
 
 typealias SandBoxTransformer<T> = (inputs: List<Flow<Marble.Model<T>>>) -> Flow<Marble.Model<T>>
 
@@ -29,11 +29,11 @@ class SandBox<T : Any> : Component {
   private val docs = KotlinDocs()
   val kotlinVersion = html("p") {
     attr("class", "version version--first")
-    text = "kotlinx.coroutines version is 1.5.0"
+    text = "kotlinx.coroutines version is 1.6.0"
   }
   val coroutinesVersion = html("p") {
     attr("class", "version")
-    text = "kotlin version is 1.5.10"
+    text = "kotlin version is 1.6.10"
   }
   override val rootNode = html("div") {
     attr("class", "sandbox")

@@ -1,5 +1,5 @@
 plugins {
-  id 'org.jetbrains.kotlin.js' version '1.5.10'
+  id 'org.jetbrains.kotlin.js' version '1.6.10'
 }
 
 repositories {
@@ -8,7 +8,7 @@ repositories {
 
 dependencies {
   implementation "org.jetbrains.kotlin:kotlin-stdlib-js"
-  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.5.0"
+  implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.6.0"
 }
 
 kotlin.target.browser {}

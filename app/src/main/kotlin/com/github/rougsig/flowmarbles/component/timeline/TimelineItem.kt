@@ -5,7 +5,7 @@ import com.github.rougsig.flowmarbles.core.Component
 import org.w3c.dom.DOMRect
 import org.w3c.dom.events.Event
 import org.w3c.dom.events.MouseEvent
-import kotlin.browser.document
+import kotlinx.browser.document
 
 class TimelineItem<T : Any>(model: Marble.Model<T>, posY: Long = 1) : Component {
   var dragListener: ((Long) -> Unit)? = null

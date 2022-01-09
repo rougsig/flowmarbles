@@ -2,8 +2,8 @@ package com.github.rougsig.flowmarbles.core
 
 import org.w3c.dom.Element
 import org.w3c.dom.events.Event
-import kotlin.browser.document
-import kotlin.dom.appendText
+import kotlinx.browser.document
+import kotlinx.dom.appendText
 
 open class ComponentBuilder(tag: String, private val createElement: (String) -> Element) {
   private val element = createElement(tag)
@@ -12,7 +12,7 @@ open class ComponentBuilder(tag: String, private val createElement: (String) -> 
   var clickListener: ((Event) -> Unit)? = null
 
   fun attr(attr: String, value: String) {
-    attrs += attr to value.trim()
+    attrs = attrs + (attr to value.trim())
   }
 
   fun tag(tag: String, block: ComponentBuilder.() -> Unit = {}) {

@@ -7,8 +7,8 @@ import com.github.rougsig.flowmarbles.component.sandbox.SandBox
 import com.github.rougsig.flowmarbles.core.html
 import com.github.rougsig.flowmarbles.operators.operators
 import org.w3c.dom.HashChangeEvent
-import kotlin.browser.document
-import kotlin.browser.window
+import kotlinx.browser.document
+import kotlinx.browser.window
 
 fun main() {
   val app = document.getElementById("app")!!

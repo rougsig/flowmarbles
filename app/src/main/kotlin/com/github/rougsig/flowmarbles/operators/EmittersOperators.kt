@@ -2,6 +2,7 @@ package com.github.rougsig.flowmarbles.operators
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onEmpty
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.transform
 
@@ -58,6 +59,20 @@ fun emittersOperators() = listOf(
     ) { inputs ->
       inputs[0].onCompletion {
         emit(marble("D", 0, Colors.accentColors[0]))
+      }
+    }
+  ),
+  menuItem(
+    label("onEmpty"),
+    sandbox(
+      "onEmpty",
+      inputs(
+        input()
+      ),
+      "onEmpty { emit(\"E\") }"
+    ) { inputs ->
+      inputs[0].onEmpty {
+        emit(marble("E", 0, Colors.accentColors[0]))
       }
     }
   )

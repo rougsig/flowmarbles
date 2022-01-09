@@ -3,6 +3,7 @@ package com.github.rougsig.flowmarbles.operators
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.runningFold
 
 @ExperimentalCoroutinesApi
 fun transformOperators() = listOf(
@@ -170,9 +171,9 @@ fun transformOperators() = listOf(
     ) { inputs -> inputs[0].scan(marble(0, 0, Colors.accentColors[0])) { acc, v -> acc + v } }
   ),
   menuItem(
-    label("scanReduce"),
+    label("runningReduce"),
     sandbox(
-      "scanReduce",
+      "runningReduce",
       inputs(
         input(
           marble(1, 0),
@@ -184,7 +185,25 @@ fun transformOperators() = listOf(
           marble(7, 900)
         )
       ),
-      "scanReduce { acc, v -> acc + v }"
+      "runningReduce { acc, v -> acc + v }"
     ) { inputs -> inputs[0].runningReduce { acc, v -> acc + v } }
+  ),
+  menuItem(
+    label("runningFold"),
+    sandbox(
+      "runningFold",
+      inputs(
+        input(
+          marble(1, 0),
+          marble(2, 150),
+          marble(3, 300),
+          marble(4, 450),
+          marble(5, 600),
+          marble(6, 750),
+          marble(7, 900)
+        )
+      ),
+      "runningFold(0) { acc, v -> acc + v }"
+    ) { inputs -> inputs[0].runningFold(marble(0, 0)) { acc, v -> acc + v } }
   )
 )
