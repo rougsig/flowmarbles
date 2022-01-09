@@ -5,20 +5,43 @@ services:
     build:
       context: ./app
       dockerfile: ./Dockerfile
-    networks:
-      main:
-        ipv4_address: 172.18.1.31
     restart: always
+    networks:
+      - marbles
+
   docs:
     build:
       context: ./docs
       dockerfile: ./Dockerfile
-    networks:
-      main:
-        ipv4_address: 172.18.1.32
     restart: always
+    networks:
+      - marbles
+
+  nginx:
+    depends_on:
+      - app
+      - docs
+    image: nginx
+    restart: always
+    volumes:
+      - ./nginx/flowmarbles.conf:/etc/nginx/conf.d/flowmarbles.conf
+    networks:
+      - marbles
+    labels:
+      - networks=bridge
+    environment:
+      - VIRTUAL_HOST=flowmarbles.com,www.flowmarbles.com
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=flowmarbles.com,www.flowmarbles.com
+      - LETSENCRYPT_EMAIL=nick@nk2.eu
+
+  connect-bridge:
+    image: stmllr/docker-client
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - nginx
+    command: /bin/sh -c 'docker ps -f label=networks=bridge --format "{{.ID}}" | xargs docker network connect bridge'
 
 networks:
-  main:
-    external:
-      name: main
+  marbles:
