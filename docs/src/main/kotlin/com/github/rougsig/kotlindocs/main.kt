@@ -26,7 +26,9 @@ fun main() {
           val uri = URI(BASE_DOCS_URL)
           val doc = getDocsHtml("$BASE_DOCS_URL${page.toCamelKebabCase()}.html")
           println("$BASE_DOCS_URL${call.parameters["page"]}.html")
-          val pageContents = doc.select("#content .divergent-group")
+
+          val pageContents = doc.select(".content")
+          if (pageContents.isEmpty()) error("Content not found for: '$page'")
           pageContents.select("a").forEach { link ->
             link.attr("target", "_blank")
             val href = link.attr("href")
@@ -62,7 +64,7 @@ private fun String.toCamelKebabCase(): String {
   this.forEach {
     if (it.isUpperCase()) {
       builder.append("-")
-      builder.append(it.toLowerCase())
+      builder.append(it.lowercaseChar())
     } else {
       builder.append(it)
     }
