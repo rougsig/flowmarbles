@@ -1,0 +1,43 @@
+version: '2'
+
+services:
+  app:
+    image: registry.kot.tools/rougsig-flowmarbles-app:latest
+    restart: always
+    networks:
+      - marbles
+
+  docs:
+    image: registry.kot.tools/rougsig-flowmarbles-docs:latest
+    restart: always
+    networks:
+      - marbles
+
+  nginx:
+    depends_on:
+      - app
+      - docs
+    image: nginx
+    restart: always
+    volumes:
+      - ./nginx/flowmarbles.conf:/etc/nginx/conf.d/flowmarbles.conf
+    networks:
+      - marbles
+    labels:
+      - bridge
+    environment:
+      - VIRTUAL_HOST=flowmarbles.com,www.flowmarbles.com
+      - VIRTUAL_PORT=80
+      - LETSENCRYPT_HOST=flowmarbles.com,www.flowmarbles.com
+      - LETSENCRYPT_EMAIL=nick@nk2.eu
+
+  connect-bridge:
+    image: stmllr/docker-client
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - nginx
+    command: /bin/sh -c 'docker ps -f label=bridge --format "{{.ID}}" | xargs docker network connect bridge'
+
+networks:
+  marbles:
