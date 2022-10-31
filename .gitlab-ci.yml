@@ -1,33 +1,58 @@
-image: gradle:7-jdk11
-
 variables:
   GRADLE_OPTS: "-Dorg.gradle.daemon=false"
 
-build:
+stages:
+  - build
+  - package
+
+artifact-build:
+  image: gradle:7-jdk11
   stage: build
   script: ./gradlew app:build docs:fatJar
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
     paths:
-      - app/build
-      - docs/build
+      - app/build/distributions
+      - docs/build/libs
       - .gradle
   artifacts:
     paths:
       - app/build/distributions
+      - app/Dockerfile
       - docs/build/libs
-      - Dockerfile
-      - docker-compose.yml
+      - docs/Dockerfile
     expire_in: 1 week
-  tags:
-    - build
 
-deploy:
-  stage: deploy
+docker-package:
+  image: docker:latest
+  stage: package
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
-    - docker-compose down || true
-    - docker-compose rm -f || true
-    - docker-compose up --build -d
-  tags:
-    - run
+    - |
+      if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
+        tag=""
+        echo "Running on default branch '$CI_DEFAULT_BRANCH': tag = 'latest'"
+      else
+        tag=":$CI_COMMIT_REF_SLUG"
+        echo "Running on branch '$CI_COMMIT_BRANCH': tag = $tag"
+      fi
+    - |
+      cd app
+      docker build --pull -t "${CI_REGISTRY_IMAGE}-app${tag}" .
+      docker push "${CI_REGISTRY_IMAGE}-app${tag}"
+      cd ..
+    - |
+      cd docs
+      docker build --pull -t "${CI_REGISTRY_IMAGE}-docs${tag}" .
+      docker push "${CI_REGISTRY_IMAGE}-docs${tag}"
+      cd ..
+  # Run this job in a branch where a Dockerfile exists
+  rules:
+    - if: $CI_COMMIT_BRANCH
+      exists:
+        - app/Dockerfile
+        - docs/Dockerfile

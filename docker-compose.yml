@@ -2,17 +2,13 @@ version: '2'
 
 services:
   app:
-    build:
-      context: ./app
-      dockerfile: ./Dockerfile
+    image: registry.kot.tools/rougsig-flowmarbles-app:latest
     restart: always
     networks:
       - marbles
 
   docs:
-    build:
-      context: ./docs
-      dockerfile: ./Dockerfile
+    image: registry.kot.tools/rougsig-flowmarbles-docs:latest
     restart: always
     networks:
       - marbles
@@ -28,7 +24,7 @@ services:
     networks:
       - marbles
     labels:
-      - networks=bridge
+      - bridge
     environment:
       - VIRTUAL_HOST=flowmarbles.com,www.flowmarbles.com
       - VIRTUAL_PORT=80
@@ -41,7 +37,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     depends_on:
       - nginx
-    command: /bin/sh -c 'docker ps -f label=networks=bridge --format "{{.ID}}" | xargs docker network connect bridge'
+    command: /bin/sh -c 'docker ps -f label=bridge --format "{{.ID}}" | xargs docker network connect bridge'
 
 networks:
   marbles:
